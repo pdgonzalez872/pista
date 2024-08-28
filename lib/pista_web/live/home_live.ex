@@ -600,11 +600,11 @@ defmodule PistaWeb.HomeLive do
           "https://images-api.printify.com/mockup/65f4acbc7e4ee53c3d051399/83037/72796/padel-unisex-moisture-wicking-tee_1710533979660.jpg?camera_label=front&s=400"
       },
       %{
-        name: "Pista QR Code T-Shirt",
+        name: "Pista T-Shirt",
         id: "qr_code",
-        url: "https://pista.printify.me/product/6530851/pista-qr-code-moisture-wicking-tee",
+        url: "https://pista.printify.me/product/8747105/pista-padel-moisture-wicking-tee",
         img_src:
-          "https://images-api.printify.com/mockup/65f4a838520e8067d904481c/83036/81122/pista-qr-code-moisture-wicking-tee_1711848006525.jpg?camera_label=front&s=400"
+          "https://images-api.printify.com/mockup/665b69f7ea6a231d4a0e17fb/83024/72783/pista-padel-moisture-wicking-tee_1717267111425.jpg?camera_label=front&s=400"
       },
       %{
         name: "Pista Cap - Navy",
