@@ -1,0 +1,675 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class=" js cssanimations"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<script async="" src="a1_cape_town_2023_incomplete_files/fbevents.js"></script><script>
+    function crearCookie(clave, valor, diasexpiracion) {
+        var d = new Date();
+        d.setTime(d.getTime() + (diasexpiracion * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = clave + "=" + valor + "; " + expires;
+    }
+
+    function obtenerCookie(clave) {
+        var name = clave + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1);
+            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
+
+    function comprobarCookie(clave) {
+        var clave = obtenerCookie(clave);
+        if (clave != "") {
+            // La cookie existe.
+            return true;
+        } else {
+            // La cookie no existe.
+            return false;
+        }
+    }
+
+    function grabaScroll(url) {
+        //graba las pos actual del scroll en la cookie...
+        var pos;
+        pos = posTop();  //document.body.scrollTop;  //document.getElementById("divPage").scrollTop;
+        // alert(pos);
+        crearCookie(url, pos, 1);
+
+    }
+
+    function cambiaScroll(url) {
+        //posiciona en div ...
+        var pos;
+        pos = obtenerCookie(url);
+        //alert('cambia a ' + pos);
+
+        //if (pos == '') { } else { document.getElementById("divPage").scrollTop = obtenerCookie(url); }
+        //if (pos == '') { } else { document.body.scrollTop = pos; }
+        if (pos == '') { } else { window.scrollTo(0, pos); }
+
+    }
+
+    function posTop() {
+
+        return typeof window.pageYOffset != 'undefined' ? window.pageYOffset : document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ? document.body.scrollTop : 0;
+    }
+
+
+    //El nombre del controlador que mantiene la sesión
+    var CONTROLADOR = "noCerrarSesion.ashx";
+
+    //Ejecuta el script en segundo plano evitando así que caduque la sesión de esta página
+    function MantenSesion() {
+        var head = document.getElementsByTagName('head').item(0);
+        script = document.createElement('script');
+        script.src = CONTROLADOR;
+        script.setAttribute('type', 'text/javascript');
+        script.defer = true;
+        head.appendChild(script);
+    }
+
+
+
+    //Temporizador para matener la sesión activa
+    setInterval("MantenSesion()", 600000);
+            
+            </script>
+<meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <style type="text/css">
+
+	.tiles {
+		display: -moz-flex;
+		display: -webkit-flex;
+		display: -ms-flex;
+		display: flex;
+		-moz-flex-wrap: wrap;
+		-webkit-flex-wrap: wrap;
+		-ms-flex-wrap: wrap;
+		flex-wrap: wrap;
+		postiion: relative;
+		margin: -2.5em 0 0 -2.5em;
+	}
+
+		.tiles article {
+			-moz-transition: -moz-transform 0.5s ease, opacity 0.5s ease;
+			-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+			-ms-transition: -ms-transform 0.5s ease, opacity 0.5s ease;
+			transition: transform 0.5s ease, opacity 0.5s ease;
+			position: relative;
+			width: calc(50% - 2.5em);
+			margin: 2.5em 0 0 2.5em;
+		}
+
+			.tiles article > .image {
+				-moz-transition: -moz-transform 0.5s ease;
+				-webkit-transition: -webkit-transform 0.5s ease;
+				-ms-transition: -ms-transform 0.5s ease;
+				transition: transform 0.5s ease;
+				position: relative;
+				display: block;
+				width: 100%;
+				border-radius: 4px;
+				overflow: hidden;
+			}
+
+				.tiles article > .image img {
+					display: block;
+					width: 100%;
+				}
+
+				.tiles article > .image:before {
+					-moz-pointer-events: none;
+					-webkit-pointer-events: none;
+					-ms-pointer-events: none;
+					pointer-events: none;
+					-moz-transition: background-color 0.5s ease, opacity 0.5s ease;
+					-webkit-transition: background-color 0.5s ease, opacity 0.5s ease;
+					-ms-transition: background-color 0.5s ease, opacity 0.5s ease;
+					transition: background-color 0.5s ease, opacity 0.5s ease;
+					content: '';
+					display: block;
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					opacity: 1.0;
+					z-index: 1;
+					opacity: 0.8;
+				}
+
+				.tiles article > .image:after {
+					-moz-pointer-events: none;
+					-webkit-pointer-events: none;
+					-ms-pointer-events: none;
+					pointer-events: none;
+					-moz-transition: opacity 0.5s ease;
+					-webkit-transition: opacity 0.5s ease;
+					-ms-transition: opacity 0.5s ease;
+					transition: opacity 0.5s ease;
+					content: '';
+					display: block;
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					/*background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cstyle%3Eline %7B stroke-width: 0.25px%3B stroke: %23ffffff%3B %7D%3C/style%3E%3Cline x1='0' y1='0' x2='100' y2='100' /%3E%3Cline x1='100' y1='0' x2='0' y2='100' /%3E%3C/svg%3E");*/
+					/*background-image: url("img/botonera/hover2.png");*/
+					background-position: center;
+					background-repeat: no-repeat;
+					background-size: 100% 100%;
+					opacity: 0.25;
+					z-index: 2;
+				}
+
+			.tiles article > a {
+				display: -moz-flex;
+				display: -webkit-flex;
+				display: -ms-flex;
+				display: flex;
+				-moz-flex-direction: column;
+				-webkit-flex-direction: column;
+				-ms-flex-direction: column;
+				flex-direction: column;
+				-moz-align-items: center;
+				-webkit-align-items: center;
+				-ms-align-items: center;
+				align-items: center;
+				-moz-justify-content: center;
+				-webkit-justify-content: center;
+				-ms-justify-content: center;
+				justify-content: center;
+				-moz-transition: background-color 0.5s ease, -moz-transform 0.5s ease;
+				-webkit-transition: background-color 0.5s ease, -webkit-transform 0.5s ease;
+				-ms-transition: background-color 0.5s ease, -ms-transform 0.5s ease;
+				transition: background-color 0.5s ease, transform 0.5s ease;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				padding: 1em;
+				border-radius: 4px;
+				border-bottom: 0;
+				color: #ffffff;
+				text-align: center;
+				text-decoration: none;
+				z-index: 3;
+			}
+
+				.tiles article > a > :last-child {
+					margin: 0;
+					color:#FFF;
+				}
+
+				.tiles article > a:hover {
+					color: #ffffff !important;
+				}
+
+				.tiles article > a h2 {
+					margin: 0;
+					color:#FFF;
+				}
+
+				.tiles article > a .content {
+					-moz-transition: max-height 0.5s ease, opacity 0.5s ease;
+					-webkit-transition: max-height 0.5s ease, opacity 0.5s ease;
+					-ms-transition: max-height 0.5s ease, opacity 0.5s ease;
+					transition: max-height 0.5s ease, opacity 0.5s ease;
+					width: 100%;
+					max-height: 0;
+					line-height: 1.5;
+					margin-top: 0.35em;
+					opacity: 0;
+				}
+
+					.tiles article > a .content > :last-child {
+						margin-bottom: 0;
+						text-shadow: 0.1em 0.1em 0.2em black;
+						font-size:1.6em;
+						font-weight:bold;
+					}
+
+			.tiles article.style1 > .image:before {
+				/*background-color: #f2849e;*/
+				/*background-image: url("img/botonera/hover2.png");*/
+				background-position:center;
+				background-repeat: no-repeat;
+				background-size: 100% 100%;
+				
+			}
+
+			.tiles article.style2 > .image:before {
+				background-color: #7ecaf6;
+			}
+
+			.tiles article.style3 > .image:before {
+				background-color: #7bd0c1;
+			}
+
+			.tiles article.style4 > .image:before {
+				background-color: #c75b9b;
+			}
+
+			.tiles article.style5 > .image:before {
+				background-color: #ae85ca;
+			}
+
+			.tiles article.style6 > .image:before {
+				background-color: #8499e7;
+			}
+
+			body:not(.is-touch) .tiles article:hover > .image {
+				-moz-transform: scale(1.1);
+				-webkit-transform: scale(1.1);
+				-ms-transform: scale(1.1);
+				transform: scale(1.1);
+			}
+
+				body:not(.is-touch) .tiles article:hover > .image:before {
+					/*background-color: #333333;*/
+					opacity: 0.35;
+				}
+
+				body:not(.is-touch) .tiles article:hover > .image:after {
+					opacity: 0;
+				}
+
+			body:not(.is-touch) .tiles article:hover .content {
+				max-height: 15em;
+				opacity: 1;
+			}
+
+		* + .tiles {
+			margin-top: 2em;
+		}
+
+		body.is-loading .tiles article {
+			-moz-transform: scale(0.9);
+			-webkit-transform: scale(0.9);
+			-ms-transform: scale(0.9);
+			transform: scale(0.9);
+			opacity: 0;
+		}
+
+		body.is-touch .tiles article .content {
+			max-height: 15em;
+			opacity: 1;
+		}
+
+		@media screen and (max-width: 1280px) {
+
+			.tiles {
+				margin: -1.25em 0 0 -1.25em;
+			}
+
+				.tiles article {
+					width: calc(50% - 1.25em);
+					margin: 1.25em 0 0 1.25em;
+				}
+
+		}
+
+		@media screen and (max-width: 980px) {
+
+			.tiles {
+				margin: -2.5em 0 0 -2.5em;
+			}
+
+				.tiles article {
+					width: calc(100% - 2.5em);
+					margin: 2.5em 0 0 2.5em;
+				}
+
+		}
+
+		@media screen and (max-width: 736px) {
+
+			.tiles {
+				margin: -1.25em 0 0 -1.25em;
+			}
+
+				.tiles article {
+					width: calc(100% - 1.25em);
+					margin: 1.25em 0 0 1.25em;
+				}
+
+					.tiles article:hover > .image {
+						-moz-transform: scale(1.0);
+						-webkit-transform: scale(1.0);
+						-ms-transform: scale(1.0);
+						transform: scale(1.0);
+					}
+
+		}
+
+		@media screen and (max-width: 480px) {
+
+			.tiles {
+				margin: 0;
+			}
+
+				.tiles article {
+					width: 100%;
+					margin: 1.25em 0 0 0;
+				}
+				
+				.tiles article > a .content {
+					-moz-transition: max-height 0.5s ease, opacity 0.5s ease;
+					-webkit-transition: max-height 0.5s ease, opacity 0.5s ease;
+					-ms-transition: max-height 0.5s ease, opacity 0.5s ease;
+					transition: max-height 0.5s ease, opacity 0.5s ease;
+					width: 100%;
+					max-height: 0;
+					line-height: 1.5;
+					margin-top: 0.35em;
+					max-height: 15em;
+			        opacity: 1;
+				}
+
+					.tiles article > a .content > :before {
+						margin-bottom: 0;
+						text-shadow: 0.1em 0.1em 0.2em black;
+						font-size:1.6em;
+						font-weight:bold;
+						max-height: 15em;
+		            	opacity: 1;
+					}
+
+		}
+
+</style>
+
+	    <!-- Web Fonts -->
+     
+
+	    <!-- Flaticon CSS -->
+	    <link href="a1_cape_town_2023_incomplete_files/flaticon.css" rel="stylesheet">
+	    <!-- font-awesome CSS -->
+	    <link href="a1_cape_town_2023_incomplete_files/font-awesome.minv2.css" rel="stylesheet">
+	    <!-- Offcanvas CSS -->
+	    <link href="a1_cape_town_2023_incomplete_files/off-canvasv2.css" rel="stylesheet">
+	    <!-- animate CSS -->
+	    <link href="a1_cape_town_2023_incomplete_files/animate.css" rel="stylesheet">
+	    <!-- language CSS -->
+	    <link href="a1_cape_town_2023_incomplete_files/language-select.css" rel="stylesheet"> 
+	    <!-- owl.carousel CSS -->
+	    <link href="a1_cape_town_2023_incomplete_files/owl.carousel.css" rel="stylesheet">
+		<!-- magnific-popup -->
+    	<link href="a1_cape_town_2023_incomplete_files/magnific-popup.css" rel="stylesheet">
+	    <!-- Bootstrap Core CSS -->
+	    <link href="a1_cape_town_2023_incomplete_files/bootstrap.min.css" rel="stylesheet">
+	    <!-- Template Core Styles -->
+	    <link href="a1_cape_town_2023_incomplete_files/templatev2.css" rel="stylesheet">
+        <!-- Main Menu Styles -->
+	    <link href="a1_cape_town_2023_incomplete_files/menuv2.css" rel="stylesheet">
+	    <!-- Custom CSS -->
+	    <link href="a1_cape_town_2023_incomplete_files/stylev2.css" rel="stylesheet"><link href="a1_cape_town_2023_incomplete_files/typography.css" rel="stylesheet">
+	    <!-- Responsive CSS -->
+	    <link href="a1_cape_town_2023_incomplete_files/responsive.css" rel="stylesheet"><link href="a1_cape_town_2023_incomplete_files/blog.css" rel="stylesheet"><link rel="shortcut icon" href="https://www.a1padelglobal.com/img/favicon.ico">
+
+	    <script src="a1_cape_town_2023_incomplete_files/modernizr-2.8.1.min.js"></script>
+	    <!-- HTML5 Shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	    <!--[if lt IE 9]>
+		    <script src="js/vendor/html5shim.js"></script>
+		    <script src="js/vendor/respond.min.js"></script>
+	    <![endif]-->
+
+
+    
+
+<script type="module" src="a1_cape_town_2023_incomplete_files/hook.js"></script><title>
+
+</title></head>
+<body id="page-top" class="loaded">
+		<div id="st-container" class="st-container hippo-offcanvas-wrapper hippo-offcanvas-left slide-in-on-top">
+		    <div class="st-pusher hippo-offcanvas-pusher">
+	        	<div class="st-content hippo-offcanvas-contents">
+					<header class="header">
+				  	<div class="container mainnav">   <nav class="navbar navbar-default sticky animated fadeInDown" role="navigation" style="margin-top: 0px;">      <div class="col-md-2" style="display: contents;">         <div style="padding-top:2px;" class="hidden-sm hidden-xs"><a href="https://www.a1padelglobal.com/index.aspx"><img src="a1_cape_town_2023_incomplete_files/apt_blanco20.png" style="float:left;margin-top: 2px;width:200px; height:66px;" alt=""></a></div>         <button type="button" class="navbar-toggle collapsed">         <span class="sr-only">Menu</span>         <i class="fa fa-bars"></i>         </button>      </div>      <div class="col-md-8">         <div class="logoMob"><a href="https://www.a1padelglobal.com/index.aspx"><img src="a1_cape_town_2023_incomplete_files/apt_blanco20.png" style="width:200px; height:66px;" alt=""></a></div>         <div class="collapse navbar-collapse navbar-collapse">            <ul class="nav navbar-nav hidden-sm"><li class="dropdown"> <a href="#">A1PADEL</a> <div class="submenu-wrapper submenu-wrapper-topbottom"> <div class="submenu-inner  submenu-inner-topbottom"> <ul class="dropdown-menu"><li><a href="https://www.a1padelglobal.com/pagina.aspx?idPagina=1">HISTORIA</a></li><li><a href="https://www.a1padelglobal.com/pagina.aspx?idPagina=5">REGLAMENTOS</a></li></ul> </div> </div> </li><li class="dropdown"> <a href="#">RANKING</a> <div class="submenu-wrapper submenu-wrapper-topbottom"> <div class="submenu-inner  submenu-inner-topbottom"> <ul class="dropdown-menu"><li><a href="https://www.a1padelglobal.com/rankinga1p.aspx">RANKING ABSOLUTO</a></li></ul> </div> </div> </li><li><a href="https://www.a1padelglobal.com/pagina.aspx?idPagina=8">CALENDARIO</a></li><li><a href="https://www.a1padelglobal.com/torneos.aspx">TORNEOS</a></li><li><a href="https://www.a1padelglobal.com/noticias.aspx">NOTICIAS</a></li><li class="dropdown"> <a href="#">MULTIMEDIA</a> <div class="submenu-wrapper submenu-wrapper-topbottom"> <div class="submenu-inner  submenu-inner-topbottom"> <ul class="dropdown-menu"><li><a href="https://www.a1padelglobal.com/fotosa.aspx">FOTOS</a></li><li><a href="https://www.a1padelglobal.com/videos.aspx">VIDEOS</a></li></ul> </div> </div> </li><li><a href="https://www.a1padelglobal.com/scoreboard.aspx">SCOREBOARD</a></li><li><a href="https://www.a1padelglobal.com/streaming.aspx">STREAMING</a></li>            </ul>         </div>      </div>      <div class="col-md-2" style="display:contents;float: right;">         <div class="col-md-12">            <ul class="redesnav">               <li><a href="https://www.a1padelglobal.com/login.aspx?ReturnUrl=ap_index.aspx"> <i class="fa fa-user" style="" aria-hidden="true"></i></a></li>               <li><a href="https://www.instagram.com/a1padel_official/" target="_blank"> <i class="fa fa-instagram" aria-hidden="true"></i></a></li>               <li><a href="https://twitter.com/A1PadelOfficial" target="_blank"> <i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>               <li><a href="https://www.youtube.com/@A1PADEL" target="_blank"> <i class="fa fa-youtube-square" aria-hidden="true"></i></a></li>               <li></li>               <li class="idioma"><a href="https://www.a1padelglobal.com/index.aspx?lang=EN"><img src="a1_cape_town_2023_incomplete_files/GB.png" class="BanderaCircular"></a></li>               <li class="idioma"><a href="https://www.a1padelglobal.com/index.aspx?lang=ES"><img src="a1_cape_town_2023_incomplete_files/ES.png" class="BanderaCircular"></a></li>            </ul>         </div>      </div>   </nav></div>	
+                    </header>
+                </div>
+        <div>
+    <form method="post" action="./torneoPartidos.aspx?idTorneo=2261" id="forwm">
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTM4NTAwODUzMg9kFgJmD2QWAgIBD2QWAgIDD2QWBmYPFgIeCWlubmVyaHRtbAUGVE9STkVPZAIBDw8WAh4EVGV4dAUcQTEgUEFZU1BBQ0UgQ0FQRSBUT1dOIE1BU1RFUmRkAgIPDxYCHghJbWFnZVVybAUYL2ltYWdlbmVzLzc0OGVlY2M3OTYuSlBHZGRkmjLmycVNSc0tpwx8HjgqV+lkhn3r5whcj7QJNk8UbAU=">
+</div>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="E76104DE">
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAALWYWTvkmHC+GLAEzmSu6YzGlRYaYBZJZhGwxaQngXY8OW4Ndfbp4N+w9DePRQYqio+4AQMxhvDCDZqaiDecLbc">
+</div>
+<input type="hidden" name="ctl00$hfAppMovil" id="hfAppMovil">
+        
+    <link href="a1_cape_town_2023_incomplete_files/imagehover.min.css" rel="stylesheet" media="all">
+
+    <section class="page-title-section">
+<div class="container">
+	<div class="page-header">
+		<h2 id="H2" style="color: #FFF;">TORNEO</h2>
+        <ol class="breadcrumb">
+		</ol>
+	</div>
+</div>
+</section>
+    
+<section class="service-wrap section-padding-low">
+    <div class="container">
+        <h2 style="text-align:center;text-transform: uppercase;"><span id="ContentPlaceHolder1_lbNombreTorneo">A1 PAYSPACE CAPE TOWN MASTER</span></h2>
+         </div>
+         </section>
+         <section class="service-wrap section-padding-low">
+         <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-12">
+                <a href="https://www.a1padelglobal.com/torneo.aspx?idTorneo=2261"><img id="ContentPlaceHolder1_imgTorneo" class="img-responsive" src="a1_cape_town_2023_incomplete_files/748eecc796.JPG" style="margin:0 auto; width:70%;"></a>
+            </div>
+
+            <div class="col-md-8 col-sm-12">
+                <button type="button" class="buttonmau " onclick="window.location.href='torneoInscritos.aspx?idTorneo=2261'"><i class="fa fa-users" aria-hidden="true"></i> Inscritos</button><button type="button" class="buttonmau " onclick="window.location.href='torneoInfo.aspx?idTorneo=2261'"><i class="fa fa-info-circle" aria-hidden="true"></i> Info</button> <button type="button" class="buttonmau" onclick="window.location.href='noticias.aspx?tor=2261'"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Noticias</button> <button type="button" class="buttonmau " onclick="window.location.href='torneoCuadros.aspx?idTorneo=2261'"><i class="fa fa-square-o" aria-hidden="true"></i> Cuadros</button><button type="button" class="buttonmau active" onclick="window.location.href='torneoPartidos.aspx?idTorneo=2261'"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> Hora y Resultados</button>
+                <hr>
+                
+                 <div style="margin:0 auto; max-width:800px;">
+                       <h3>Listado de Partidos</h3><div style="overflow: scroll"><h3>MASCULINO</h3><h3>Cuadro</h3><table class="table table-condensed table-hover" style="cursor:pointer;" width="100%" border="0"><thead><tr class="CabeceraRnk"> <th>Ronda</th><th>Pista</th><th>Fecha y Hora</th><th>Pareja 1</th><th>Pareja 2</th><th>Resultado</th><th></th></tr></thead><tbody><tr class="LineasRnk"> <td>R16</td><td>CTR.</td><td>14/02/23 09:00 </td><td><strong><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100468">Vasco  Pascoal  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100320">Pedro Perry Ferreira  </a></strong></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100148">Omar Matias  Ortiz  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101738">Martin  Araujo De Lizarza  </a></td><td>6-0  /  6-4 </td><td></td></tr><tr class="LineasRnk"> <td>R16</td><td>CTR.</td><td>14/02/2023 ORD.2</td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100169">Pedro Santiago Castañeyra  Delgado  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100173">Martín Abud Kuhner  </a></td><td><strong><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101055">Francisco Maier  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100875">Mauricio Rivero  </a></strong></td><td>2-6  /  6-4  /  4-6</td><td></td></tr><tr class="LineasRnk"> <td>R16</td><td>CTR.</td><td>14/02/2023 ORD.3</td><td><strong><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100800">Santiago Pineda Cabello  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100927">Marcos González Blanco  </a></strong></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100504">João Maria  Caiano  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100330">Francisco Ramos  </a></td><td>7-6  /  6-4 </td><td></td></tr><tr class="LineasRnk"> <td>R16</td><td>CTR.</td><td>14/02/2023 ORD.4</td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101293">Brett Hilarides  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101243">Jason Blakey-Milner  </a></td><td><strong><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100465">Miguel  Deus  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100466">Nuno  Deus  </a></strong></td><td>5-7  /  0-6 </td><td></td></tr><tr class="LineasRnk"> <td>R16</td><td>CTR.</td><td>14/02/2023 ORD.5</td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101557">Francisco  González  De Rafael  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101741">Tomás Cheda Aguiar  </a></td><td><strong><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100042">Leonel Daniel Aguirre  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101136">Adrian  Allemandi  </a></strong></td><td>4-6  /  0-6 </td><td></td></tr><tr class="LineasRnk"> <td>R16</td><td>CTR.</td><td>14/02/2023 ORD.6</td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100869">Leonardo Yob  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100121">Luciano Puppo  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100079">Pablo Hernán Barrera  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100016">Matias  Del Moral  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R16</td><td>CTR.</td><td>14/02/2023 ORD.7</td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100977">José Luis  González  Rodríguez  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100614">Antonio Luque Aragon  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100114">Alex Valentino Chozas  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100305">Miguel  Fonseca  Oliveira  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R16</td><td>CTR.</td><td>14/02/2023 ORD.8</td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100694">Oier Zuazua Aostri  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101224">Daniel Martinez Otero  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100096">Yain  Melgratti  Seu  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100020">Federico Chiostri  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R16</td><td>CTR.</td><td>15/02/23 09:00 </td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100775">Alejandro Perez Porta  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101265">Alejandro Garayo Lana  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101301">Mauro Agustin  Salandro  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101790">Federico Dip Nazar  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R16</td><td>CTR.</td><td>15/02/2023 ORD.2</td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100526">Guillermo Lahoz Rodríguez  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101793">Adam Van Harte  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101020">Juan Ignacio Rubini  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100009">Matías  Almada  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R16</td><td>CTR.</td><td>15/02/2023 ORD.3</td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100036">Eduardo Agustín Torre  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101137">Diego Ramos  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100471">Pedro  Araújo  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100789">Gustavo  Nunes  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R16</td><td>CTR.</td><td>15/02/2023 ORD.4</td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100057">Maximiliano  Sánchez  Blasco  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100865">Andres Alberto  Britos  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101169">Mateo Rivero  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101057">Vinny  Di Francesco  Calderón  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R16</td><td>CTR.</td><td>15/02/2023 ORD.5</td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100422">Juan Ignacio  De Pascual  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100021">Gonzalo Gabriel Alfonso  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101558">Daniel Blanco Dopazo  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101750">Alfonso Sánchez  Arriaga  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R16</td><td>CTR.</td><td>15/02/2023 ORD.6</td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100103">Franco Dal Bianco  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100102">Maximiliano  Arce Simo  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101510">Pablo Deltell Juan  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101586">Miguel Morales Domenech  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R16</td><td>CTR.</td><td>15/02/2023 ORD.7</td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100065">Fabricio Peiron  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100886">Matias Gonzalez  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101229">Jose Carlos  Gaspar  Campos  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100847">Ricardo  Martinez  Sanchez  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R16</td><td>CTR.</td><td>15/02/2023 ORD.8</td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101295">Antonio Fernandez Cano  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101503">Jose Antonio  Garcia  Diestro  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100017">Santiago Frugoni Zavala  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100115">Relis  Ferreyra  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R8</td><td>CTR.</td><td>16/02/2023 </td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R8</td><td>CTR.</td><td>16/02/2023 </td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R8</td><td>CTR.</td><td>16/02/2023 </td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R8</td><td>CTR.</td><td>16/02/2023 </td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100468">Vasco  Pascoal  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100320">Pedro Perry Ferreira  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R8</td><td>CTR.</td><td>16/02/2023 </td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100800">Santiago Pineda Cabello  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100927">Marcos González Blanco  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R8</td><td>CTR.</td><td>16/02/2023 </td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100465">Miguel  Deus  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100466">Nuno  Deus  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R8</td><td>CTR.</td><td>16/02/2023 </td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101055">Francisco Maier  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100875">Mauricio Rivero  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=100042">Leonel Daniel Aguirre  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=101136">Adrian  Allemandi  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R8</td><td>CTR.</td><td>16/02/2023 </td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R4</td><td>CTR.</td><td>17/02/2023 </td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R4</td><td>CTR.</td><td>17/02/2023 </td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R4</td><td>CTR.</td><td>17/02/2023 </td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>R4</td><td>CTR.</td><td>17/02/2023 </td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>Semi</td><td>CTR.</td><td>18/02/2023 </td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>Semi</td><td>CTR.</td><td>18/02/2023 </td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td>---  /  ---  /  ---</td><td></td></tr><tr class="LineasRnk"> <td>Final</td><td>CTR.</td><td>19/02/23 15:00 </td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td><a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a> <br> <a href="https://www.a1padelglobal.com/fichajugador.aspx?lic=0">  </a></td><td>---  /  ---  /  ---</td><td></td></tr></tbody></table></div>
+                       <br><hr>
+                       <h3>Listado de Partidos</h3><div style="overflow: scroll"></div>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    
+
+
+        </form> 
+    </div>
+    <section class="section-padding"><div class="container"><div class="row" style="text-align:center"><center><h3>Sponsored by</h3></center><ul><div style="display:inline-block;margin:20px;"><a href="https://www.a1padelglobal.com/partners.aspx?id=1" target="_blank"><img src="a1_cape_town_2023_incomplete_files/montecarlo.JPG"></a></div></ul></div><br><div style="text-align:center"><center><h3>Patrocinadores</h3></center><div style="display:inline-block;margin:20px;"><a href="https://www.a1padelglobal.com/partners.aspx?id=9" target="_blank"><img src="a1_cape_town_2023_incomplete_files/babolat.jpg"></a></div></div></div></section><footer class="copyright-section">   <div class="container">   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">      <div class="footer-menu">         <ul>               <li class="idioma"><a href="https://www.a1padelglobal.com/index.aspx?lang=EN"><img src="a1_cape_town_2023_incomplete_files/GB.png" class="BanderaCircular"></a></li>               <li class="idioma"><a href="https://www.a1padelglobal.com/index.aspx?lang=ES"><img src="a1_cape_town_2023_incomplete_files/ES.png" class="BanderaCircular"></a></li></ul>            <ul><li><a href="https://www.a1padelglobal.com/contacto.aspx">Contacto</a></li>            <li><a href="mailto:deportivo@a1padelglobal.com"><i class="fa fa-envelope"></i> Deportivo</a></li>         </ul>         <ul>            <li><a href="https://www.a1padelglobal.com/pagina.aspx?idPagina=4">Legales</a></li>            <li><a href="https://www.a1padelglobal.com/pagina.aspx?idPagina=5">Bases del circuito</a></li>         </ul>         <ul>               <li><a href="https://www.instagram.com/a1padel_official/" target="_blank"> <i class="fa fa-instagram" aria-hidden="true"></i></a></li>               <li><a href="https://twitter.com/A1PadelOfficial" target="_blank"> <i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>               <li><a href="https://www.youtube.com/@A1PADEL" target="_blank"> <i class="fa fa-youtube-square" aria-hidden="true"></i></a></li>         </ul>      </div>      <div class="copyright-info">         <span>Copyright © 2023 A1Padel - Todos los derechos reservados. </span>      </div>   </div>    </div></footer>
+      </div> <!-- .st-content -->
+    <div class="offcanvas-menu offcanvas-effect hippo-offcanvas-container">   <div class="offcanvas-wrap">      <div class="off-canvas-header">         <button type="button" class="close" aria-hidden="true" data-toggle="offcanvas" id="off-canvas-close-btn">×</button>      </div>      <ul id="offcanvasMenu" class="list-unstyled visible-xs visible-sm">               <li><a href="https://www.a1padelglobal.com/login.aspx?ReturnUrl=ap_index.aspx"> <i class="fa fa-user" style="" aria-hidden="true"></i></a></li>               <li><a href="https://www.a1padelglobal.com/index.aspx?lang=EN"><img src="a1_cape_town_2023_incomplete_files/GB.png" class="BanderaCircular"> English</a></li>               <li><a href="https://www.a1padelglobal.com/index.aspx?lang=ES"><img src="a1_cape_town_2023_incomplete_files/ES.png" class="BanderaCircular"> Español</a></li><li><a href="#">A1PADEL <i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></a><ul><li><a href="https://www.a1padelglobal.com/pagina.aspx?idPagina=1">HISTORIA</a></li><li><a href="https://www.a1padelglobal.com/pagina.aspx?idPagina=5">REGLAMENTOS</a></li></ul></li><li><a href="#">RANKING <i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></a><ul><li><a href="https://www.a1padelglobal.com/rankinga1p.aspx">RANKING ABSOLUTO</a></li></ul></li><li><a href="https://www.a1padelglobal.com/pagina.aspx?idPagina=8">CALENDARIO</a></li><li><a href="https://www.a1padelglobal.com/torneos.aspx">TORNEOS</a></li><li><a href="https://www.a1padelglobal.com/noticias.aspx">NOTICIAS</a></li><li><a href="#">MULTIMEDIA <i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></a><ul><li><a href="https://www.a1padelglobal.com/fotosa.aspx">FOTOS</a></li><li><a href="https://www.a1padelglobal.com/videos.aspx">VIDEOS</a></li></ul></li><li><a href="https://www.a1padelglobal.com/scoreboard.aspx">SCOREBOARD</a></li><li><a href="https://www.a1padelglobal.com/streaming.aspx">STREAMING</a></li>      </ul>   </div></div>
+
+	</div> <!-- .st-pusher -->
+    
+    <div id="preloader" style="display: none;">
+			<div id="status" style="display: none;">
+				<div class="status-mes"></div>
+			</div>
+		</div>
+
+
+	    <!-- jQuery -->
+	    <script src="a1_cape_town_2023_incomplete_files/jquery.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+	    <script src="a1_cape_town_2023_incomplete_files/bootstrap.min.js"></script>
+		<!-- Scrolling Nav JavaScript -->
+	    <script src="a1_cape_town_2023_incomplete_files/jquery.easing.min.js"></script>
+	    
+	    <!-- owl.carousel -->
+	    <script src="a1_cape_town_2023_incomplete_files/owl.carousel.min.js"></script>
+	    <!-- Magnific-popup -->
+		<script src="a1_cape_town_2023_incomplete_files/jquery.magnific-popup.min.js"></script>
+		<!-- Offcanvas Menu -->
+		<script src="a1_cape_town_2023_incomplete_files/hippo-offcanvas.js"></script>
+		<!-- stellar -->
+		<script src="a1_cape_town_2023_incomplete_files/jquery.stellar.js"></script>
+		<!-- classie -->
+		<script src="a1_cape_town_2023_incomplete_files/classie.js"></script>
+		<!-- sticky kit -->
+		<script src="a1_cape_town_2023_incomplete_files/jquery.sticky-kit.min.js"></script>
+		<!-- language select -->
+		<script src="a1_cape_town_2023_incomplete_files/selectFx.js"></script>
+		<!-- Twitter feed 
+		<script src="js/twitterFetcher_min.js"></script>-->
+		<!-- Youtube Video-player -->
+	    <script src="a1_cape_town_2023_incomplete_files/jquery.mb.YTPlayer.js"></script>
+	    <!-- Custom Script -->
+	    <script src="a1_cape_town_2023_incomplete_files/scripts.js"></script>
+        
+        <script type="text/javascript">
+
+            function adjustHeightOfPage(pageNo) {
+
+                var pageContentHeight = 0;
+
+                var pageType = $('div[data-page-no="' + pageNo + '"]').data("page-type");
+
+                if (pageType != undefined && pageType == "gallery") {
+                    pageContentHeight = $(".cd-hero-slider li:nth-of-type(" + pageNo + ") .tm-img-gallery-container").height();
+                }
+                else {
+                    pageContentHeight = $(".cd-hero-slider li:nth-of-type(" + pageNo + ") .js-tm-page-content").height() + 20;
+                }
+
+                // Get the page height
+                var totalPageHeight = $('.cd-slider-nav').height()
+                                        + pageContentHeight
+                                        + $('.tm-footer').outerHeight();
+
+                // Adjust layout based on page height and window height
+                if (totalPageHeight > $(window).height()) {
+                    $('.cd-hero-slider').addClass('small-screen');
+                    $('.cd-hero-slider li:nth-of-type(' + pageNo + ')').css("min-height", totalPageHeight + "px");
+                }
+                else {
+                    $('.cd-hero-slider').removeClass('small-screen');
+                    $('.cd-hero-slider li:nth-of-type(' + pageNo + ')').css("min-height", "100%");
+                }
+            }
+
+            //    /*
+            //    Everything is loaded including images.
+            //    */
+            $(window).load(function () {
+
+
+                adjustHeightOfPage(1); // Adjust page height
+
+                /* Gallery One pop up
+                -----------------------------------------*/
+                $('.gallery-one').magnificPopup({
+                    delegate: 'a', // child items selector, by clicking on it popup will open
+                    type: 'image',
+                    gallery: { enabled: true }
+                });
+
+
+                /* Collapse menu after click 
+                -----------------------------------------*/
+                $('#tmNavbar a').click(function () {
+                    $('#tmNavbar').collapse('hide');
+
+                    adjustHeightOfPage($(this).data("no")); // Adjust page height       
+                });
+
+                /* Browser resized 
+                -----------------------------------------*/
+                $(window).resize(function () {
+                    var currentPageNo = $(".cd-hero-slider li.selected .js-tm-page-content").data("page-no");
+
+                    // wait 3 seconds
+                    setTimeout(function () {
+                        //adjustHeightOfPage(currentPageNo);
+                    }, 1000);
+
+                });
+
+                // Remove preloader (https://ihatetomatoes.net/create-custom-preloading-screen/)
+                $('body').addClass('loaded');
+
+                // Write current year in copyright text.
+                $(".tm-copyright-year").text(new Date().getFullYear());
+
+            });
+
+            function iw_abrir_link(direccion, pantallacompleta, herramientas, direcciones, estado, barramenu, barrascroll, cambiatamano, ancho, alto, izquierda, arriba, sustituir) {
+                var opciones = "fullscreen=" + pantallacompleta +
+                  ",toolbar=" + herramientas +
+                  ",location=" + direcciones +
+                  ",status=" + estado +
+                  ",menubar=" + barramenu +
+                  ",scrollbars=" + barrascroll +
+                  ",resizable=" + cambiatamano +
+                  ",width=" + ancho +
+                  ",height=" + alto +
+                  ",left=" + izquierda +
+                  ",top=" + arriba;
+
+                var idpopup
+                idpopup = "popup" + Math.round((new Date()).getTime() / 1000);
+
+                //   alert(idpopup)
+                var ventana = window.open(direccion, idpopup, opciones, sustituir);
+
+            }
+
+
+            function resizeIframe(obj) {
+                obj.style.height = obj.contentWindow.document.body.scrollHeight + 10 + 'px';
+            }
+
+
+            
+   </script>
+   
+
+   <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async="" src="a1_cape_town_2023_incomplete_files/js.js"></script>
+<!-- IniGoogleA -->
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-154965732-1');
+</script>
+<!-- FinGoogleA -->
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '3609936755741166');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=3609936755741166&ev=PageView&noscript=1"
+/></noscript>
+<script data-ad-client="ca-pub-6884208304124093" async="" src="a1_cape_town_2023_incomplete_files/adsbygoogle.js"></script>
+<!-- End Facebook Pixel Code -->
+        
+
+
+<div id="toTop" style="display: block;"><i class="fa fa-angle-up"></i></div></body></html>

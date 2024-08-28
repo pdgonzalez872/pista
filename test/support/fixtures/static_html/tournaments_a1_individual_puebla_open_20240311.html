@@ -1,0 +1,365 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- Google tag (gtag.js) --> 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J25NKECZ4X"></script> 
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag() {
+    dataLayer.push(arguments);
+}
+gtag('js', new Date());
+gtag('config', 'G-J25NKECZ4X'); 
+</script>
+
+
+
+<!-- Google Tag Manager -->
+<script>    
+(function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({ 'gtm.start':
+new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'dataLayer', 'GTM-KSQS6PN5');</script>
+<!-- Fin de Google Tag Manager -->
+
+
+
+<script>
+    function crearCookie(clave, valor, diasexpiracion) {
+        var d = new Date();
+        d.setTime(d.getTime() + (diasexpiracion * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = clave + "=" + valor + "; " + expires;
+    }
+
+    function obtenerCookie(clave) {
+        var name = clave + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1);
+            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
+
+    function comprobarCookie(clave) {
+        var clave = obtenerCookie(clave);
+        if (clave != "") {
+            // La cookie existe.
+            return true;
+        } else {
+            // La cookie no existe.
+            return false;
+        }
+    }
+
+    function grabaScroll(url) {
+        //graba las pos actual del scroll en la cookie...
+        var pos;
+        pos = posTop();  //document.body.scrollTop;  //document.getElementById("divPage").scrollTop;
+        // alert(pos);
+        crearCookie(url, pos, 1);
+
+    }
+
+    function cambiaScroll(url) {
+        //posiciona en div ...
+        var pos;
+        pos = obtenerCookie(url);
+        //alert('cambia a ' + pos);
+
+        //if (pos == '') { } else { document.getElementById("divPage").scrollTop = obtenerCookie(url); }
+        //if (pos == '') { } else { document.body.scrollTop = pos; }
+        if (pos == '') { } else { window.scrollTo(0, pos); }
+
+    }
+
+    function posTop() {
+
+        return typeof window.pageYOffset != 'undefined' ? window.pageYOffset : document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ? document.body.scrollTop : 0;
+    }
+
+
+    //El nombre del controlador que mantiene la sesión
+    var CONTROLADOR = "noCerrarSesion.ashx";
+
+    //Ejecuta el script en segundo plano evitando así que caduque la sesión de esta página
+    function MantenSesion() {
+        var head = document.getElementsByTagName('head').item(0);
+        script = document.createElement('script');
+        script.src = CONTROLADOR;
+        script.setAttribute('type', 'text/javascript');
+        script.defer = true;
+        head.appendChild(script);
+    }
+
+
+
+    //Temporizador para matener la sesión activa
+    setInterval("MantenSesion()", 600000);
+            
+            </script>
+<meta charset="UTF-8" /><meta name="viewport" content="width=, initial-scale=1.0" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" /><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" /><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" /><link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" /> 
+    <link rel="stylesheet" href="styles.css?v=3.32"">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="js_alert/sweetalert2.all.min.js" type="text/javascript"></script>
+        <script src="js_alert/sweetalert2.min.js" type="text/javascript"></script>        
+        <link href="js_alert/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+<title>A1 Padel - Torneos</title><meta name='Subject' content='A1 Padel - Torneos' /><meta name='Title' content='A1 Padel - Torneos' /><meta name='Description' content='Circuito APT Padel Tour - Torneos' /><meta name='Keywords' content='Circuito de Padel APT - Torneos' /><meta name='Author' content='APT Padel Tour' /><meta name='Copyright' content='APT Padel Tour' /><meta name='Robots' content='all' /><meta name='Robot' content='index,follow,all' />
+
+<title>
+
+</title></head>
+<body id="page-top">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KSQS6PN5"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- Fin de Google Tag Manager (noscript) -->
+
+    
+
+    <div class='container-fluid upper-header d-flex justify-content-center'><h3>Buy tickets online to our events</h3> <a class='linkTop' href='https://secure.tickster.com/en/cplvt7g1gckdfbf/selectevent	' target='_blank'>MONACO</a> </div>
+    <header class="main-header container-fluid">
+    <div class='container d-flex align-items-center justify-content-md-between justify-content-sm-end'><a href='/' class='main-logo'><img src='img/a1padel_logo.png' alt='Logo'></a><nav class='main-nav d-flex align-items-center'><div class='w-submenu'><a href='#'>A1PADEL</a><ul class='submenu-list'><li class='submenu-item'><a href='historia.aspx'>HISTORIA</a></li><li class='submenu-item'><a href='reglamentos.aspx'>REGLAMENTOS</a></li></ul></div><div class='w-submenu'><a href='#'>RANKING</a><ul class='submenu-list'><li class='submenu-item'><a href='rankinga1p.aspx'>RANKING A1P</a></li></ul></div><a href='calendario.aspx'>CALENDARIO</a><div class='w-submenu'><a href='#'>TORNEOS</a><ul class='submenu-list'><li class='submenu-item'><a href='torneos.aspx'>TORNEOS A1</a></li><li class='submenu-item'><a href='torneosF.aspx'>TORNEOS FP</a></li></ul></div><a href='noticias.aspx'>NOTICIAS</a><a href='fotosa.aspx'>MULTIMEDIA</a><a href='scoreboard.aspx'>SCOREBOARD</a><a href='streaming.aspx'>STREAMING</a></nav><div class='user'><a href='login.aspx?ReturnUrl=ap_index.aspx' style='font-size: 1.3rem;color: white;' class='current-user'> <i class='bi bi-person'></i></a>  <a href='index.aspx?lang=ES' style='margin-right:5px'><img src='img/banderas/ES.png' alt='ESPAÑOL' class='current-flag'></a> <a href='index.aspx?lang=EN'><img src='img/banderas/GB.png' alt='ENGLISH' class='current-flag'></a> </div> <span class='material-symbols-outlined mobile-menu' id='mobile-menu'>menu</span> </div>	
+    <div class="mobile-menu-nav" id="mobile-menu-nav"><nav class="main-nav d-flex align-items-center flex-column"><div class="w-submenu"><a href="#">A1PADEL</a><ul class="submenu-list"><li><a href="historia.aspx">HISTORIA</a></li><li><a href="reglamentos.aspx">REGLAMENTOS</a></li></ul></div><div class="w-submenu"><a href="#">RANKING</a><ul class="submenu-list"><li><a href="rankinga1p.aspx">RANKING A1P</a></li></ul></div><a href="calendario.aspx">CALENDARIO</a><div class="w-submenu"><a href="#">TORNEOS</a><ul class="submenu-list"><li><a href="torneos.aspx">TORNEOS A1</a></li><li><a href="torneosF.aspx">TORNEOS FP</a></li></ul></div><a href="noticias.aspx">NOTICIAS</a><a href="fotosa.aspx">MULTIMEDIA</a><a href="scoreboard.aspx">SCOREBOARD</a><a href="streaming.aspx">STREAMING</a></nav></div>
+    </header>
+
+
+
+    
+    <form method="post" action="./torneo.aspx?idTorneo=2313" id="forwm">
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJNzU2MzE0MDA3ZGSE6DMEXZPF1XYnDJNPwXm1SHVA0BvfT6lzl5dgHO1Z7Q==" />
+</div>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="3FADF3DC" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAL3QvEbUQ0y7i3e1cr3TZRtGlRYaYBZJZhGwxaQngXY8DwCJu6PQroddGioUBYgrEbicKHRWr69DIe5AvLHe6Vj" />
+</div>
+<input type="hidden" name="ctl00$hfAppMovil" id="hfAppMovil" />
+        
+  <section style='background-image:url(/imagenes/db1e0ae592.JPG); background-size: cover;background-position: bottom;'><div class='master__header--title d-flex'><h1 class='master__title1 superline'>TORNEO&nbsp;<span class='master__title2'>Open</span></h1></div><p class='master__date'>1 - 10 Marzo 2024</p><p class='master__location'>Puebla</p></section>
+<section class='master__line'><div class='master__line--text d-flex justify-content-evenly'><a href='torneo.aspx?idTorneo=2313' class='master__item d-flex align-items-center'><i class='bi bi-info-circle' style='color:white;font-size:20px'></i><p class='master__text'>Info</p></a><a href='torneoInscritos.aspx?idTorneo=2313' class='master__item d-flex'><i class='bi bi-people' style='color:white;font-size:20px'></i><p class='master__text'>Inscritos</p></a><a href='torneoCuadros.aspx?idTorneo=2313' class='master__item d-flex'><i class='bi bi-diagram-3' style='color:white;font-size:20px'></i><p class='master__text'>Cuadros</p></a><a href='torneoPartidos.aspx?idTorneo=2313' class='master__item d-flex'><i class='bi bi-calendar2-week' style='color:white;font-size:20px'></i><p class='master__text'>Hora y Resultados</p></a></div></section>
+  <section class='master__description'><div class='master__description--body d-flex justify-content-center flex-wrap'><div class='master__description--imgcontainer d-flex flex-wrap'><div class='master__description--img'><img src='imagenes/c480267277.JPG' alt='' class='description__img' style='width: 314px;height: 444px;'></div></div><div class='master__description--text' style='color:black'><p class='description__title'>DESCRIPCIÓN</p><p class='description__text'><p><strong><strong><strong><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">OPEN (25+4*+3**) LIMITADO A 104 PAREJAS MAXIMO, con previas en sede, que se ordenar&aacute;n por puntos A1PADEL.</span></span><br /></strong></strong></strong></p>
+<p>&nbsp;</p>
+<p><strong><strong><strong><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">* 4 parejas provenientes de la Fase Previa.</span></span></strong></strong></strong></p>
+<p><strong><strong><strong><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">** 3 posibles wild cards (Organizador/Promotor, MCIS + Campe&oacute;n FPC)</span></span></strong></strong></strong></p>
+<p>&nbsp;</p>
+<p><strong><strong><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">OFICIAL DEL CLUB: MATCH POINT Padel Indoor Puebla</span></span><br /></strong></strong></p>
+<p><strong><strong><strong><strong><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">PISTA CENTRAL:</span></span></strong></strong><span style="vertical-align: inherit;"><span style="vertical-align: inherit;"> Arena BUAP</span></span><br /></strong></strong></p>
+<p>&nbsp;</p>
+<p><strong><strong><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">PREMIOS</span></span></strong><span style="vertical-align: inherit;"><span style="vertical-align: inherit;"> :</span></span></strong></p>
+<p><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">130.000 d&oacute;lares</span></span></p>
+<p><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">(consultar reparto en la ficha del torneo)</span></span></p>
+<p>&nbsp;</p>
+<p><strong><strong><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">PRECIO INSCRIPCI&Oacute;N</span></span></strong><span style="vertical-align: inherit;"><span style="vertical-align: inherit;"> :</span></span></strong></p>
+<p><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">35EUR</span></span></p>
+<p>&nbsp;</p>
+<p><strong><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">PREVIAS</span></span></strong></p>
+<p><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">Pre previa de 64 parejas el Viernes 1 y el S&aacute;bado 2 de Marzo.</span></span></p>
+<p><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">Previa: 12+4 el Domingo 3 de Marzo.</span></span></p>
+<p>&nbsp;</p>
+<p><strong><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">FINAL DE CUADRO</span></span><br /></strong></p>
+<p><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">Cuadro final de 28 parejas (25+4+3)</span></span></p>
+<p><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">Lunes y Martes: Dieciseisavos de final.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></span></p>
+<p><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">Mi&eacute;rcoles y Jueves: Octavos de final.</span></span></p>
+<p><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">Viernes: Cuartos de final.</span></span></p>
+<p><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">S&aacute;bado: Semifinales.</span></span></p>
+<p><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">Domingo: Final </span></span><strong><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">.</span></span><br /></strong></p>
+<p><strong>&nbsp;</strong></p>
+<p><strong><span style="vertical-align: inherit;"><span style="vertical-align: inherit;">HOTEL PARA JUGADORES&nbsp;</span></span></strong><span style="vertical-align: inherit;"><span style="vertical-align: inherit;"> (consultar la ficha del torneo)</span></span></p></p><p class='description__title'>Ficha Torneo: <strong><a href='/documentos/Ficha Open Puebla.pdf' target='_blank'>Ver Ficha</a></strong></p><ul class='description__list'></ul><div class='master__description--table'></div><div class='description__table'><div class='table__row row'><div class='table__item col'><p class='table__title'>CLUB OFICIAL</p><p class='table__text'>MATCH POINT Padel Indoor Puebla</p><span class='material-symbols-outlined arrow-next'>chevron_right</span></div><div class='table__item col'><p class='table__title'>PRECIO INSCRIPCIÓN</p><p class='table__text'>35</p><span class='material-symbols-outlined arrow-next'>chevron_right</span></div></div><div class='table__row row'><div class='table__item col'><p class='table__title'>FECHA TORNEO</p><p class='table__range'></p><p class='table__subtitle'>FECHA LÍMITE INSCRIPCIÓN</p><p class='table__date'>20/02/2024 12h. Puebla (México)</p><span class='material-symbols-outlined arrow-next'>chevron_right</span></div><div class='table__item col'><p class='table__title'>PREMIOS</p><p class='table__consult'>130.000 USD</p><span class='material-symbols-outlined arrow-next'>chevron_right</span></div></div><div class='table__item table__row row'><p class='table__title'>HORARIO CUADRO FINAL</p><p class='table__dates'></p><span class='material-symbols-outlined arrow-next bottom-0'>chevron_right</span></div></div><div class='live-padel container-fluid'><div class='m-width'><p class='master__live--title'>WE LIVE PADEL.</p></div></div></div></section>
+  <section class='master__live'><div class='master__maps d-flex justify-content-between flex-wrap'><div class='map1'><p class='map__title'>Pista Central</p><div class='map__subtitle d-flex justify-content-between'><p class='map__location'>Arena BUAP</p></div><div class='map__img d-flex justify-content-center'><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3772.4444093384877!2d-98.20628192575023!3d19.000129054351863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfbf5ea1a97149%3A0xce26a1b69233008f!2sArena%20BUAP!5e0!3m2!1ses!2ses!4v1707571186456!5m2!1ses!2ses" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></div><div class='map1'><p class='map__title'>Club Oficial</p><div class='map__subtitle d-flex justify-content-between'><p class='map__location'>MATCH POINT Padel Indoor Puebla</p></div><div class='map__img d-flex justify-content-center'><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3772.1040514495353!2d-98.26344361422427!3d19.015136107940563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc77a74a6cb11%3A0xd40bec76ebb32802!2sMATCH%20POINT%20Padel%20Indoor%20Puebla.!5e0!3m2!1ses!2ses!4v1707320087658!5m2!1ses!2ses" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></div></div><img class='map__back' src='img/super-back.png' alt=''></section>
+  
+  
+  
+  
+
+        </form>
+    
+
+    <section class='pre-footer container-fluid d-flex flex-column align-items-center'><h3 class='sponsor-text'>Sponsored by</h3><div class='sponsors-img d-flex align-items-center flex-wrap'><a href='partners.aspx?id=1' target='_blank'><img src='/imagenes/montecarlo.JPG' style='max-width:190px;' /></a></section>
+
+    <footer class="container-fluid"><section class="main-footer container-fluid d-grid"><div class="footer-column d-flex flex-column"><h3>Info a1padel</h3><nav class="footer-menu d-flex flex-column"><a href="historia.aspx">ABOUT</a><a href="legales.aspx">LEGALES</a><a href="#">PRIVACY POLICY</a><a href="reglamentos.aspx">BASES DEL CIRCUITO</a></nav></div><div class="footer-column d-flex flex-column"><h3>Sitemap</h3><nav class="footer-menu d-flex flex-column"><a href="historia.aspx">A1PADEL</a><a href="rankinga1p.aspx">RANKING</a><a href="calendario.aspx">CALENDARIO</a><a href="torneos.aspx">TORNEOS</a><a href="noticias.aspx">NOTICIAS</a><a href="fotosa.aspx">MULTIMEDIA</a><a href="scoreboard.aspx">SCOREBOARD</a><a href="streaming.aspx">STREAMING</a></nav></div><div class="footer-column d-flex flex-column"><h3>Social networks</h3><nav class="footer-menu d-flex flex-column"><a href="https://www.instagram.com/a1padel_official/" target="_blank"> <i class="bi bi-instagram"></i> @a1padelglobal</a><a href="https://www.tiktok.com/@a1padel_official" target="_blank"> <i class="bi bi-tiktok"></i> @a1padelglobal</a><a href="https://www.youtube.com/@A1PADEL" target="_blank"> <i class="bi bi-youtube"></i> @a1padel_live</a><a href="https://X.com/A1PadelOfficial" target="_blank"> <i class="bi bi-twitter-x"></i> @a1padel</a><a href="https://www.twitch.tv/a1padel" target="_blank"> <i class="bi bi-twitch"></i> @a1padelglobal</a></nav></div><div class="footer-column d-flex flex-column"><h3>Contact</h3><nav class="footer-menu d-flex flex-column"><a href="mailto:admin@a1padelglobal.com">admin@a1padelglobal.com</a><a href="tel:+37797775100">T. +377 97 77 51 00</a></nav><div class="footer-address"><p>Le Palais de la Scala,</p><p>1 Avenue Henry Dunant, Lot 1200</p><p>98000 Monaco</p></div></div></section><section class="container-fluid copyright-footer text-center">© Copyright 2024 A1Padel. All rights reserved. A1padel.com</section><section class="lower-footer d-flex align-items-center justify-content-center"><img src="img/logo_a1p_blanco.png" alt="Footer Logo"></section></footer>
+
+      
+    
+
+    
+    <div id="preloader">
+			<div id="status">
+				<div class="status-mes"></div>
+			</div>
+		</div>
+
+
+	    <!-- jQuery -->
+	    <script src="jsweb/jquery.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+	    <script src="jsweb/bootstrap.min.js"></script>
+		<!-- Scrolling Nav JavaScript -->
+	    <script src="jsweb/jquery.easing.min.js"></script>
+	    
+	    <!-- owl.carousel -->
+	    
+	    <!-- Magnific-popup -->
+		<script src="jsweb/jquery.magnific-popup.min.js"></script>
+		<!-- Offcanvas Menu -->
+		<script src="jsweb/hippo-offcanvas.js"></script>
+		<!-- stellar -->
+		<script src="jsweb/jquery.stellar.js"></script>
+		<!-- classie -->
+		<script src="jsweb/classie.js"></script>
+		<!-- sticky kit -->
+		<script src="jsweb/jquery.sticky-kit.min.js"></script>
+		<!-- language select -->
+		<script src="jsweb/selectFx.js"></script>
+		<!-- Twitter feed 
+		<script src="js/twitterFetcher_min.js"></script>-->
+		<!-- Youtube Video-player -->
+	    <script src="jsweb/jquery.mb.YTPlayer.js"></script>
+	    <!-- Custom Script -->
+
+            <script src="js/scripts.js"></script>
+        
+        <script type="text/javascript">
+
+            function adjustHeightOfPage(pageNo) {
+
+                var pageContentHeight = 0;
+
+                var pageType = $('div[data-page-no="' + pageNo + '"]').data("page-type");
+
+                if (pageType != undefined && pageType == "gallery") {
+                    pageContentHeight = $(".cd-hero-slider li:nth-of-type(" + pageNo + ") .tm-img-gallery-container").height();
+                }
+                else {
+                    pageContentHeight = $(".cd-hero-slider li:nth-of-type(" + pageNo + ") .js-tm-page-content").height() + 20;
+                }
+
+                // Get the page height
+                var totalPageHeight = $('.cd-slider-nav').height()
+                                        + pageContentHeight
+                                        + $('.tm-footer').outerHeight();
+
+                // Adjust layout based on page height and window height
+                if (totalPageHeight > $(window).height()) {
+                    $('.cd-hero-slider').addClass('small-screen');
+                    $('.cd-hero-slider li:nth-of-type(' + pageNo + ')').css("min-height", totalPageHeight + "px");
+                }
+                else {
+                    $('.cd-hero-slider').removeClass('small-screen');
+                    $('.cd-hero-slider li:nth-of-type(' + pageNo + ')').css("min-height", "100%");
+                }
+            }
+
+            //    /*
+            //    Everything is loaded including images.
+            //    */
+            $(window).load(function () {
+
+
+                adjustHeightOfPage(1); // Adjust page height
+
+                /* Gallery One pop up
+                -----------------------------------------*/
+                $('.gallery-one').magnificPopup({
+                    delegate: 'a', // child items selector, by clicking on it popup will open
+                    type: 'image',
+                    gallery: { enabled: true }
+                });
+
+
+                /* Collapse menu after click 
+                -----------------------------------------*/
+                $('#tmNavbar a').click(function () {
+                    $('#tmNavbar').collapse('hide');
+
+                    adjustHeightOfPage($(this).data("no")); // Adjust page height       
+                });
+
+                /* Browser resized 
+                -----------------------------------------*/
+                $(window).resize(function () {
+                    var currentPageNo = $(".cd-hero-slider li.selected .js-tm-page-content").data("page-no");
+
+                    // wait 3 seconds
+                    setTimeout(function () {
+                        //adjustHeightOfPage(currentPageNo);
+                    }, 1000);
+
+                });
+
+                // Remove preloader (https://ihatetomatoes.net/create-custom-preloading-screen/)
+                $('body').addClass('loaded');
+
+                // Write current year in copyright text.
+                $(".tm-copyright-year").text(new Date().getFullYear());
+
+            });
+
+            function iw_abrir_link(direccion, pantallacompleta, herramientas, direcciones, estado, barramenu, barrascroll, cambiatamano, ancho, alto, izquierda, arriba, sustituir) {
+                var opciones = "fullscreen=" + pantallacompleta +
+                  ",toolbar=" + herramientas +
+                  ",location=" + direcciones +
+                  ",status=" + estado +
+                  ",menubar=" + barramenu +
+                  ",scrollbars=" + barrascroll +
+                  ",resizable=" + cambiatamano +
+                  ",width=" + ancho +
+                  ",height=" + alto +
+                  ",left=" + izquierda +
+                  ",top=" + arriba;
+
+                var idpopup
+                idpopup = "popup" + Math.round((new Date()).getTime() / 1000);
+
+                //   alert(idpopup)
+                var ventana = window.open(direccion, idpopup, opciones, sustituir);
+
+            }
+
+
+            function resizeIframe(obj) {
+                obj.style.height = obj.contentWindow.document.body.scrollHeight + 10 + 'px';
+            }
+
+            function abrirurl(link) {
+                document.location.href = link;
+            }
+
+
+            
+   </script>
+   
+
+ 
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '3609936755741166');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=3609936755741166&ev=PageView&noscript=1"
+/></noscript>
+<script data-ad-client="ca-pub-6884208304124093" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- End Facebook Pixel Code -->
+        
+</body>
+</html>

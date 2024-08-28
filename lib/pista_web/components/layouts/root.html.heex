@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" class="[scrollbar-gutter:stable]">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <.live_title suffix="">
+      <%= assigns[:page_title] || "Pista" %>
+    </.live_title>
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
+    </script>
+
+    <script defer data-domain="pista.cloud" src="https://plausible.io/js/script.js">
+    </script>
+  </head>
+
+  <body class="bg-white antialiased">
+    <%= @inner_content %>
+  </body>
+
+  <a href="mailto:contact@pista.cloud?subject=Pista%20|%20Contact&body=Hi!">
+    <div class="inset-x-0 bottom-0">
+      <div class="flex items-center gap-x-6 bg-gray-100 py-2.5 px-6 sm:px-3.5 sm:before:flex-1">
+        <p class="justify-center text-sm leading-6 text-black">
+          <strong class="font-semibold">Want to partner with us? </strong><span class="text-indigo-600 font-bold">Drop us a line!</span>
+        </p>
+        <div class="flex flex-1 justify-end">
+          <button type="button" class="-m-3 p-3 focus-visible:outline-offset-[-4px]">
+            <span class="sr-only"></span>
+            <!-- Heroicon name: mini/x-mark -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </a>
+</html>
