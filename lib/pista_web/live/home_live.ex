@@ -383,11 +383,12 @@ defmodule PistaWeb.HomeLive do
 
   defp list_tournaments_helper(assigns, tournaments, heading, click_event_name, show) do
     assigns =
-      assigns
-      |> assign(:tournaments, tournaments)
-      |> assign(:heading, heading)
-      |> assign(:click_event_name, click_event_name)
-      |> assign(:show, show)
+      Map.merge(assigns, %{
+        tournaments: tournaments,
+        heading: heading,
+        click_event_name: click_event_name,
+        show: show
+      })
 
     ~H"""
     <div class="py-6 mx-auto max-w-2xl text-center">
@@ -487,7 +488,7 @@ defmodule PistaWeb.HomeLive do
   end
 
   defp list_product(assigns, product) do
-    assigns = assign(assigns, :product, product)
+    assigns = Map.merge(assigns, %{product: product})
 
     ~H"""
     <div class="group relative" phx-click="products" phx-value-product={@product.id}>
@@ -511,11 +512,12 @@ defmodule PistaWeb.HomeLive do
 
   defp list_pro_league_helper(assigns, name, url, schedule_link, tournaments_link) do
     assigns =
-      assigns
-      |> assign(:name, name)
-      |> assign(:url, url)
-      |> assign(:schedule_link, schedule_link)
-      |> assign(:tournaments_link, tournaments_link)
+      Map.merge(assigns, %{
+        name: name,
+        url: url,
+        schedule_link: schedule_link,
+        tournaments_link: tournaments_link
+      })
 
     ~H"""
     <tr>
