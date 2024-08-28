@@ -382,26 +382,33 @@ defmodule PistaWeb.HomeLive do
   end
 
   defp list_tournaments_helper(assigns, tournaments, heading, click_event_name, show) do
+    assigns =
+      assigns
+      |> assign(:tournaments, tournaments)
+      |> assign(:heading, heading)
+      |> assign(:click_event_name, click_event_name)
+      |> assign(:show, show)
+
     ~H"""
     <div class="py-6 mx-auto max-w-2xl text-center">
-      <h1 phx-click={click_event_name} class="text-2xl font-bold tracking-tight text-gray-900">
+      <h1 phx-click={@click_event_name} class="text-2xl font-bold tracking-tight text-gray-900">
         <div>
           <span class="text-indigo-600">
-            <%= Enum.count(tournaments) %>
+            <%= Enum.count(@tournaments) %>
           </span>
           <span>
-            <%= heading %>
+            <%= @heading %>
           </span>
         </div>
       </h1>
     </div>
 
-    <%= if Enum.empty?(tournaments) do %>
+    <%= if Enum.empty?(@tournaments) do %>
       <p class="py-10 mt-6 text-center text-base leading-8 text-gray-600">
         None at the moment!
       </p>
     <% else %>
-      <%= if show do %>
+      <%= if @show do %>
         <div class="my-4 px-4 sm:px-6 lg:px-8">
           <div class="-mx-4 mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
             <table class="min-w-full divide-y divide-gray-300">
@@ -432,7 +439,7 @@ defmodule PistaWeb.HomeLive do
               </thead>
 
               <tbody class="divide-y divide-gray-200 bg-white">
-                <%= for tournament <- tournaments do %>
+                <%= for tournament <- @tournaments do %>
                   <tr>
                     <td class="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-indigo-400 sm:w-auto sm:max-w-none sm:pl-6">
                       <a href={tournament.url} target="_blank">
@@ -480,20 +487,22 @@ defmodule PistaWeb.HomeLive do
   end
 
   defp list_product(assigns, product) do
+    assigns = assign(assigns, :product, product)
+
     ~H"""
-    <div class="group relative" phx-click="products" phx-value-product={product.id}>
+    <div class="group relative" phx-click="products" phx-value-product={@product.id}>
       <div class="h-56 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-72 xl:h-80">
         <img
-          src={product.img_src}
+          src={@product.img_src}
           alt="Product"
           target="_blank"
           class="h-full w-full object-cover object-center"
         />
       </div>
       <h3 class="mt-4 text-sm text-center text-gray-700">
-        <a href={product.url} target="_blank">
+        <a href={@product.url} target="_blank">
           <span class="absolute inset-0"></span>
-          <%= "#{product.name}" %>
+          <%= "#{@product.name}" %>
         </a>
       </h3>
     </div>
@@ -501,20 +510,27 @@ defmodule PistaWeb.HomeLive do
   end
 
   defp list_pro_league_helper(assigns, name, url, schedule_link, tournaments_link) do
+    assigns =
+      assigns
+      |> assign(:name, name)
+      |> assign(:url, url)
+      |> assign(:schedule_link, schedule_link)
+      |> assign(:tournaments_link, tournaments_link)
+
     ~H"""
     <tr>
       <td class="whitespace-nowrap py-4 pl-4 pr-3 text-center text-sm font-medium text-gray-900 sm:pl-0">
-        <a href={url} target="_blank">
-          <%= name %>
+        <a href={@url} target="_blank">
+          <%= @name %>
         </a>
       </td>
 
       <td class="whitespace-nowrap px-3 py-4 text-center text-sm text-gray-500">
-        <a href={schedule_link} target="_blank">
+        <a href={@schedule_link} target="_blank">
           🗓️
         </a>
         |
-        <a href={tournaments_link} target="_blank">
+        <a href={@tournaments_link} target="_blank">
           🏆
         </a>
       </td>
