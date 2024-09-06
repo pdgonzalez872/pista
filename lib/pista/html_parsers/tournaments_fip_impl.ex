@@ -83,6 +83,7 @@ defmodule Pista.HTMLParsers.TournamentsFipImpl do
           |> case do
             [only_one] -> [only_one, only_one]
             [_city, _country] = success -> success
+            other -> [Enum.at(other, 0), Enum.at(other, -1)]
           end
 
         {tour, level} = derive_tour_and_level(url)
