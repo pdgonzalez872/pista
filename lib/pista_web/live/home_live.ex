@@ -160,6 +160,33 @@ defmodule PistaWeb.HomeLive do
                 </div>
               </div>
 
+              <%= if @redbulltv_is_live do %>
+                <!-- RedBullTv... -->
+                <a href="https://www.redbull.com/int-en/event-series/premier-padel" target="_blank">
+                  <div class="py-6 mx-auto max-w-2xl text-center">
+                    <h1 class="text-2xl font-bold tracking-tight text-gray-900">
+                      <div>
+                        <span class="text-teal-600">
+                          Livestreams:
+                        </span>
+                        <span>
+                          RedBullTv is
+                        </span>
+                        <span class="text-red-600">
+                          LIVE!
+                        </span>
+                        <span>
+                          Click here to watch it.
+                        </span>
+                      </div>
+                      <div>
+                        <span></span>
+                      </div>
+                    </h1>
+                  </div>
+                </a>
+              <% end %>
+
               <div class="py-6 mx-auto max-w-2xl text-center">
                 <h1 class="text-2xl font-bold tracking-tight text-gray-900">
                   <div>
@@ -229,32 +256,6 @@ defmodule PistaWeb.HomeLive do
                 </div>
               </div>
 
-              <%= if @redbulltv_is_live do %>
-                <!-- RedBullTv... -->
-                <a href="https://www.redbull.com/int-en/event-series/premier-padel" target="_blank">
-                  <div class="py-6 mx-auto max-w-2xl text-center">
-                    <h1 class="text-2xl font-bold tracking-tight text-gray-900">
-                      <div>
-                        <span class="text-teal-600">
-                          Livestreams:
-                        </span>
-                        <span>
-                          RedBullTv is
-                        </span>
-                        <span class="text-red-600">
-                          LIVE!
-                        </span>
-                        <span>
-                          Click here to watch it.
-                        </span>
-                      </div>
-                      <div>
-                        <span></span>
-                      </div>
-                    </h1>
-                  </div>
-                </a>
-              <% end %>
               <%= list_tournaments_helper(
                 @socket.assigns,
                 @upcoming_tournaments,
