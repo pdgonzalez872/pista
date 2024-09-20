@@ -17,35 +17,18 @@ defmodule Pista.Application do
       # Start Finch
       {Finch, name: Pista.Finch},
       # Start the Endpoint (http/https)
-      PistaWeb.Endpoint
+      PistaWeb.Endpoint,
       # Start a worker by calling: Pista.Worker.start_link(arg)
       # {Pista.Worker, arg}
+      {DynamicSupervisor, name: Pista.DynamicSupervisor, strategy: :one_for_one}
     ]
-
-    target_env = System.get_env("MIX_ENV")
-
-    children =
-      if target_env in ["dev", "prod"] do
-        children ++
-          [
-            {Pista.Workers.LiveDetectorRedbullWorker, []},
-            {Pista.Workers.LiveDetectorYouTubeWorker, []},
-            {Pista.Workers.TournamentsWorker, []},
-            {Pista.Workers.HealthCheckLogStatsWorker, []}
-          ]
-      else
-        IO.puts("This is a test env")
-        children
-      end
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Pista.Supervisor]
     success = Supervisor.start_link(children, opts)
 
-    # if Application.get_env(:pista, :boot_workers) do
-    #   Pista.Workers.on_boot()
-    # end
+    Pista.Workers.on_boot(System.get_env("WORKER_KIND", "genserver"))
 
     success
   end
