@@ -28,7 +28,7 @@ defmodule Pista.Application do
     opts = [strategy: :one_for_one, name: Pista.Supervisor]
     success = Supervisor.start_link(children, opts)
 
-    Pista.Workers.on_boot(System.get_env("WORKER_KIND", "genserver"))
+    :ok = Pista.Workers.on_boot(System.get_env("WORKER_KIND", "genserver"))
 
     success
   end
