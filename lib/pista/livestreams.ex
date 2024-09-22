@@ -555,6 +555,7 @@ defmodule Pista.Livestreams do
          {:ok, %{results: result} = state} <-
            Pista.HTMLParsers.parse_live_redbull_tv(%{html_input: body}) do
       Logger.info("Checking on RedBullTv, is it live? -> #{inspect(result)}")
+      # Persist if yes
       state
     else
       error ->
