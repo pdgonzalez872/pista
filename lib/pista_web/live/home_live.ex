@@ -584,7 +584,7 @@ defmodule PistaWeb.HomeLive do
         name: "Premier Padel",
         url: "https://premierpadel.com",
         schedule_link:
-          "https://premierpadel.com/wp-content/themes/premierpadel/img/comming-soon-bg-dsk3.png",
+          "https://www.padelfip.com/wp-content/uploads/2024/05/2024-Premier-Padel-Calendar.pdf",
         tournaments_link: "https://www.padelfip.com/calendar-premier-padel/?events-year=2024"
       },
       %{
