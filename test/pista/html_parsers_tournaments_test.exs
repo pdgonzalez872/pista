@@ -213,6 +213,37 @@ defmodule HTMLParsersTournamentsTest do
                  url: "passed in"
                })
     end
+
+    @tag :this
+    test "parses the calendar tournaments page for A1 correctly" do
+      {:ok, html} =
+        [
+          File.cwd!(),
+          "test",
+          "support",
+          "fixtures",
+          "static_html",
+          "tournaments_a1_calendar_20240924.html"
+        ]
+        |> Path.join()
+        |> File.read()
+
+      assert {:ok, result} =
+               Pista.HTMLParsers.parse_tournaments_calendar_a1(%{html_input: html})
+
+      assert %{
+               city: "MONACO",
+               country: "-",
+               dates_text: "15 - 24 Marzo 2024",
+               end_date: ~D[2024-03-24],
+               event_name: "MONACO",
+               level: "Master",
+               start_date: ~D[2024-03-15],
+               tour: "A1",
+               tournament_grade: "a1_master",
+               url: "https://www.a1padelglobal.com/torneo.aspx?idTorneo=2315"
+             } = Enum.find(result, fn %{city: "MONACO"} = _el -> true end)
+    end
   end
 
   describe "UPT" do

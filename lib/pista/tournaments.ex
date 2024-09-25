@@ -499,6 +499,8 @@ defmodule Pista.Tournaments do
       end)
 
     Logger.info("Got #{Enum.count(tournaments)} from this run")
+
+    _ = Pista.DataHydrations.hydrate_countryless_tournaments()
     :ok
   end
 
