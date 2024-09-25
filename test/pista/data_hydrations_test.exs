@@ -160,7 +160,8 @@ defmodule Pista.DataHydrationsTest do
         %{event_name: "MONACO", country: "Mónaco"},
         %{event_name: "CHILE", country: "Chile"},
         %{event_name: "FRANCE", country: "Francia"},
-        %{event_name: "SANLÚCAR DE BARRAMEDA", country: "España"}
+        %{event_name: "SANLÚCAR DE BARRAMEDA", country: "España"},
+        %{event_name: "MADRID / MOSTOLES", country: "España"}
       ]
 
       assert {:ok, %{country: "some country"}} =
@@ -170,6 +171,20 @@ defmodule Pista.DataHydrationsTest do
                )
 
       assert {:ok, %{country: "México"}} =
+               Pista.DataHydrations.hydrate_countryless_tournament(
+                 tournament_without_country,
+                 target_list
+               )
+
+      # better test case:
+      args =
+        valid_attrs
+        |> Map.put(:country, "-")
+        |> Map.put(:event_name, "MÓSTOLES - MADRID")
+
+      assert {:ok, tournament_without_country} = Pista.Tournaments.create_tournament(args)
+
+      assert {:ok, %{country: "España"}} =
                Pista.DataHydrations.hydrate_countryless_tournament(
                  tournament_without_country,
                  target_list

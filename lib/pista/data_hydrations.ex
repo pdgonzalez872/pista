@@ -195,12 +195,12 @@ defmodule Pista.DataHydrations do
   end
 
   def hydrate_countryless_tournaments() do
-    # refactor with
     with {:ok, %{body: body}} <-
            Pista.Requests.get("https://www.a1padelglobal.com/calendario.aspx"),
          {:ok, tournaments_from_calendar} <-
            Pista.HTMLParsers.parse_tournaments_calendar_a1(%{html_input: body}) do
-      # call hydrate for all of the countryless tournaments we have in the db - use tournaments_from_calendar
+      Logger.info("Tournaments from calendar: #{inspect(tournaments_from_calendar)}")
+
       Pista.Tournaments.list_tournaments_a1()
       |> Enum.each(fn el ->
         hydrate_countryless_tournament(el, tournaments_from_calendar)
@@ -210,8 +210,6 @@ defmodule Pista.DataHydrations do
         Logger.error("Error countryless tournaments: #{inspect(error)}")
         error
     end
-
-    # target_list = Pista.HTMLParsers.parse_tournaments_calendar_a1()
   end
 
   def hydrate_countryless_tournament(
@@ -226,6 +224,7 @@ defmodule Pista.DataHydrations do
     end)
     |> case do
       %{country: country} ->
+        Logger.info("Updating #{event_name} with #{country}")
         Pista.Tournaments.update_tournament(tournament, %{country: country})
 
       error ->
