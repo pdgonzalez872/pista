@@ -13,7 +13,7 @@ defmodule Pista.HTMLParsers.TournamentsA1CalendarImpl do
     Logger.info("Start #{action}")
 
     with {:ok, document} <- parse_html(html_input),
-         {:ok, _} = success <- find_pertinent_data(document) do
+         {:ok, _} = success <- find_tournaments(document) do
       Logger.info("Success #{action}")
 
       success
@@ -29,57 +29,23 @@ defmodule Pista.HTMLParsers.TournamentsA1CalendarImpl do
     Floki.parse_document(html_input)
   end
 
-  defp find_pertinent_data(document) do
-    upcoming_tournaments = find_upcoming_tournaments(document)
-    past_tournaments = find_past_tournaments(document)
-    all = upcoming_tournaments ++ past_tournaments
+  defp find_tournaments(document) do
+    tournaments =
+      document
+      |> Floki.find(".calendar-item")
+      |> Enum.map(fn el ->
+        Logger.info("Processing pertinent data")
+        event_name = el |> Floki.find(".location") |> Floki.text()
 
-    {:ok, List.flatten(all)}
-  end
+        [country] =
+          el
+          |> Floki.find("img")
+          |> Floki.attribute("alt")
 
-  defp find_upcoming_tournaments(document) do
-    document
-    |> Floki.find(".tour")
-    |> Floki.find(".ptarjeta")
-    |> Enum.map(fn el ->
-      Logger.info("Processing pertinent data")
-
-      [url] = el |> Floki.find(".tlugar") |> Floki.find("a") |> Floki.attribute("href")
-
-      case Pista.Requests.get("https://www.a1padelglobal.com/#{url}") do
-        {:ok, %{body: html}} = _result ->
-          Pista.HTMLParsers.parse_tournaments_a1_individual_tournament(%{
-            html_input: html,
-            url: url
-          })
-
-        error ->
-          Logger.error("Error getting #{url}")
-          error
-      end
-    end)
-  end
-
-  defp find_past_tournaments(document) do
-    document
-    |> Floki.find(".torneos-pasados-bg")
-    |> Enum.map(fn el ->
-      el
-      |> Floki.find(".card-item")
-      |> Floki.attribute("href")
-      |> Enum.map(fn url ->
-        case Pista.Requests.get("https://www.a1padelglobal.com/#{url}") do
-          {:ok, %{body: html}} = _result ->
-            Pista.HTMLParsers.parse_tournaments_a1_individual_tournament(%{
-              html_input: html,
-              url: url
-            })
-
-          error ->
-            Logger.error("Error getting #{url}")
-            error
-        end
+        %{event_name: event_name, country: country}
       end)
-    end)
+      |> Enum.uniq()
+
+    {:ok, tournaments}
   end
 end

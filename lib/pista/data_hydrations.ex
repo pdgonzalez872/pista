@@ -196,30 +196,49 @@ defmodule Pista.DataHydrations do
 
   def hydrate_countryless_tournaments() do
     # refactor with
-    with {:ok, %{body: body}} <- Pista.Requests.get("https://www.a1padelglobal.com/calendario.aspx"),
-         {:ok, tournaments_from_calendar} <- Pista.HTMLParsers.parse_tournaments_calendar_a1(%{html_input: body})
-    do
+    with {:ok, %{body: body}} <-
+           Pista.Requests.get("https://www.a1padelglobal.com/calendario.aspx"),
+         {:ok, tournaments_from_calendar} <-
+           Pista.HTMLParsers.parse_tournaments_calendar_a1(%{html_input: body}) do
       # call hydrate for all of the countryless tournaments we have in the db - use tournaments_from_calendar
-      # Enum.each
-      dbg()
-
+      Pista.Tournaments.list_tournaments_a1()
+      |> Enum.each(fn el ->
+        hydrate_countryless_tournament(el, tournaments_from_calendar)
+      end)
     else
       error ->
         Logger.error("Error countryless tournaments: #{inspect(error)}")
         error
     end
 
-    target_list = Pista.HTMLParsers.parse_tournaments_calendar_a1()
-
+    # target_list = Pista.HTMLParsers.parse_tournaments_calendar_a1()
   end
 
-  def hydrate(%Pista.Tournaments.Tournament{country: "-"}, target_list) do
-    # find the tournament that kinda fits and try to get a country from that
-    # structure. Persist when done
-    dbg()
+  def hydrate_countryless_tournament(
+        %Pista.Tournaments.Tournament{country: "-", event_name: event_name} = tournament,
+        target_list
+      ) do
+    Logger.info("Should hydrate")
+
+    target_list
+    |> Enum.find(fn %{event_name: el_event_name} ->
+      String.jaro_distance(String.downcase(event_name), String.downcase(el_event_name)) > 0.70
+    end)
+    |> case do
+      %{country: country} ->
+        Pista.Tournaments.update_tournament(tournament, %{country: country})
+
+      error ->
+        Logger.info(
+          "Tried but could not find a name similat to #{event_name}, error: #{inspect(error)}"
+        )
+
+        {:ok, tournament}
+    end
   end
 
-  def hydrate(_tournament, _) do
-    {:ok, :noop}
+  def hydrate_countryless_tournament(tournament, _) do
+    Logger.info("noop")
+    {:ok, tournament}
   end
 end

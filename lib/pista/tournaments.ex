@@ -52,6 +52,15 @@ defmodule Pista.Tournaments do
     Repo.all(Tournament)
   end
 
+  def list_tournaments_a1 do
+    query =
+      from t in Tournament,
+        where: t.tour == "A1",
+        select: t
+
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single tournament.
 
