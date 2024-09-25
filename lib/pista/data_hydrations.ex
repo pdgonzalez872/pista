@@ -220,7 +220,10 @@ defmodule Pista.DataHydrations do
 
     target_list
     |> Enum.find(fn %{event_name: el_event_name} ->
-      String.jaro_distance(String.downcase(event_name), String.downcase(el_event_name)) > 0.70
+      a = prep_comparison(event_name)
+      b = prep_comparison(el_event_name)
+
+      String.jaro_distance(a, b) > 0.70
     end)
     |> case do
       %{country: country} ->
@@ -239,5 +242,16 @@ defmodule Pista.DataHydrations do
   def hydrate_countryless_tournament(tournament, _) do
     Logger.info("noop")
     {:ok, tournament}
+  end
+
+  defp prep_comparison(event_name) do
+    event_name
+    |> String.downcase()
+    |> String.replace("/", "")
+    |> String.replace("-", "")
+    |> String.trim()
+    |> String.split(" ")
+    |> Enum.sort()
+    |> Enum.join(" ")
   end
 end
