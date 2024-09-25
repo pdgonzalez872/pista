@@ -213,6 +213,25 @@ defmodule HTMLParsersTournamentsTest do
                  url: "passed in"
                })
     end
+
+    test "parses the calendar tournaments page for A1 correctly" do
+      {:ok, html} =
+        [
+          File.cwd!(),
+          "test",
+          "support",
+          "fixtures",
+          "static_html",
+          "tournaments_a1_calendar_20240924.html"
+        ]
+        |> Path.join()
+        |> File.read()
+
+      assert {:ok, [first | _] = _result} =
+               Pista.HTMLParsers.parse_tournaments_calendar_a1(%{html_input: html})
+
+      assert %{country: "México", event_name: "PUEBLA"} = first
+    end
   end
 
   describe "UPT" do

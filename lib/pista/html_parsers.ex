@@ -17,6 +17,10 @@ defmodule Pista.HTMLParsers do
 
   defdelegate parse_tournaments_a1(args), to: Pista.HTMLParsers.TournamentsA1Impl, as: :call
 
+  defdelegate parse_tournaments_calendar_a1(args),
+    to: Pista.HTMLParsers.TournamentsA1CalendarImpl,
+    as: :call
+
   defdelegate parse_tournaments_a1_individual_tournament(args),
     to: Pista.HTMLParsers.TournamentsA1IndividualTournamentImpl,
     as: :call

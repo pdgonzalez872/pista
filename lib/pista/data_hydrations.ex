@@ -193,4 +193,65 @@ defmodule Pista.DataHydrations do
 
     {:ok, result}
   end
+
+  def hydrate_countryless_tournaments() do
+    with {:ok, %{body: body}} <-
+           Pista.Requests.get("https://www.a1padelglobal.com/calendario.aspx"),
+         {:ok, tournaments_from_calendar} <-
+           Pista.HTMLParsers.parse_tournaments_calendar_a1(%{html_input: body}) do
+      Logger.info("Tournaments from calendar: #{inspect(tournaments_from_calendar)}")
+
+      Pista.Tournaments.list_tournaments_a1()
+      |> Enum.each(fn el ->
+        hydrate_countryless_tournament(el, tournaments_from_calendar)
+      end)
+    else
+      error ->
+        Logger.error("Error countryless tournaments: #{inspect(error)}")
+        error
+    end
+  end
+
+  def hydrate_countryless_tournament(
+        %Pista.Tournaments.Tournament{country: "-", event_name: event_name} = tournament,
+        target_list
+      ) do
+    Logger.info("Should hydrate")
+
+    target_list
+    |> Enum.find(fn %{event_name: el_event_name} ->
+      a = prep_comparison(event_name)
+      b = prep_comparison(el_event_name)
+
+      String.jaro_distance(a, b) > 0.70
+    end)
+    |> case do
+      %{country: country} ->
+        Logger.info("Updating #{event_name} with #{country}")
+        Pista.Tournaments.update_tournament(tournament, %{country: country})
+
+      error ->
+        Logger.info(
+          "Tried but could not find a name similat to #{event_name}, error: #{inspect(error)}"
+        )
+
+        {:ok, tournament}
+    end
+  end
+
+  def hydrate_countryless_tournament(tournament, _) do
+    Logger.info("noop")
+    {:ok, tournament}
+  end
+
+  defp prep_comparison(event_name) do
+    event_name
+    |> String.downcase()
+    |> String.replace("/", "")
+    |> String.replace("-", "")
+    |> String.trim()
+    |> String.split(" ")
+    |> Enum.sort()
+    |> Enum.join(" ")
+  end
 end

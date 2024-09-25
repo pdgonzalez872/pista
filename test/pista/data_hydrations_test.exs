@@ -134,4 +134,61 @@ defmodule Pista.DataHydrationsTest do
       assert {:ok, _match_result} = Pista.Results.create_match_result(match_result_args)
     end
   end
+
+  describe "hydrate_countryless_tournament/2" do
+    @tag :this
+    test "hydrates a tournament from A1 when there is no country" do
+      valid_attrs = %{
+        level: "some level",
+        url: "some url",
+        event_name: "Puebla",
+        city: "some city",
+        country: "some country",
+        start_date: ~D[2024-01-26],
+        end_date: ~D[2024-01-26],
+        tour: "A1",
+        tournament_grade: "some tournament_grade"
+      }
+
+      assert {:ok, tournament_with_country} = Pista.Tournaments.create_tournament(valid_attrs)
+
+      assert {:ok, tournament_without_country} =
+               Pista.Tournaments.create_tournament(Map.put(valid_attrs, :country, "-"))
+
+      target_list = [
+        %{event_name: "PUEBLA", country: "México"},
+        %{event_name: "MONACO", country: "Mónaco"},
+        %{event_name: "CHILE", country: "Chile"},
+        %{event_name: "FRANCE", country: "Francia"},
+        %{event_name: "SANLÚCAR DE BARRAMEDA", country: "España"},
+        %{event_name: "MADRID / MOSTOLES", country: "España"}
+      ]
+
+      assert {:ok, %{country: "some country"}} =
+               Pista.DataHydrations.hydrate_countryless_tournament(
+                 tournament_with_country,
+                 target_list
+               )
+
+      assert {:ok, %{country: "México"}} =
+               Pista.DataHydrations.hydrate_countryless_tournament(
+                 tournament_without_country,
+                 target_list
+               )
+
+      # better test case:
+      args =
+        valid_attrs
+        |> Map.put(:country, "-")
+        |> Map.put(:event_name, "MÓSTOLES - MADRID")
+
+      assert {:ok, tournament_without_country} = Pista.Tournaments.create_tournament(args)
+
+      assert {:ok, %{country: "España"}} =
+               Pista.DataHydrations.hydrate_countryless_tournament(
+                 tournament_without_country,
+                 target_list
+               )
+    end
+  end
 end
