@@ -8,6 +8,7 @@ defmodule Pista.HTMLParsers do
   """
 
   defdelegate parse_live_redbull_tv(args), to: Pista.HTMLParsers.LiveRedBullTvImpl, as: :call
+  defdelegate parse_live_youtube_channel(args), to: Pista.HTMLParsers.LiveYoutubeImpl, as: :call
 
   defdelegate parse_results_fip(args), to: Pista.ResultsParsers.FIPImpl, as: :call
 
