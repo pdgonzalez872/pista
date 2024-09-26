@@ -12,7 +12,6 @@ config :pista,
 
 # Configures the endpoint
 config :pista, PistaWeb.Endpoint,
-  adapter: Bandit.PhoenixAdapter,
   url: [host: "localhost"],
   render_errors: [
     formats: [html: PistaWeb.ErrorHTML, json: PistaWeb.ErrorJSON],
