@@ -3,15 +3,18 @@ defmodule PistaWeb.UserLoginLive do
 
   def render(assigns) do
     ~H"""
-    <div class="mx-auto max-w-sm">
+    <div class="my-10 mx-auto max-w-sm">
       <.header class="text-center">
         Log in to account
         <:subtitle>
           Don't have an account?
-          <.link navigate={~p"/users/register"} class="font-semibold text-brand hover:underline">
-            Sign up
-          </.link>
-          for an account now.
+          <a
+            href="mailto:contact@pista.cloud?subject=Pista%20|%20Signup&body=Hi!"
+            class="font-semibold text-brand hover:underline"
+          >
+            Join our founding users
+          </a>
+          now.
         </:subtitle>
       </.header>
 
