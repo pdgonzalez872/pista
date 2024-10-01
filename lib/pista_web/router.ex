@@ -17,7 +17,9 @@ defmodule PistaWeb.Router do
   scope "/", PistaWeb do
     pipe_through :browser
 
-    live "/", HomeLive
+    get "/", RedirectPlug, to: "/feed"
+
+    live "/feed", HomeLive
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
