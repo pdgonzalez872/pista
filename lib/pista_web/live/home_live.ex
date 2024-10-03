@@ -577,7 +577,11 @@ defmodule PistaWeb.HomeLive do
       end)
 
     past_tournaments = (tournaments -- upcoming_tournaments) -- current_tournaments
-    past_tournaments = Enum.filter(past_tournaments, fn t -> today.year == t.end_date.year end)
+
+    past_tournaments =
+      past_tournaments
+      |> Enum.filter(fn t -> today.year == t.end_date.year end)
+      |> Enum.sort_by(fn t -> t.start_date end, {:desc, Date})
 
     pro_leagues = [
       %{
