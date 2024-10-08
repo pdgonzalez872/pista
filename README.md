@@ -41,7 +41,7 @@ that I know the problem a little bit more. I'd experimented with a few
 different features only to see that nobody really cared for them :) That's dev.
 
 Yes, I should use more Ecto enums, maybe use Oban, but, life is short. The app
-performs flawlessly as it is and I shipped it. Shipping feels good.
+performs well as it is and I shipped it. Shipping feels good.
 
 Pista can be found here:
 [https://www.pista.cloud](https://www.pista.cloud), it's
