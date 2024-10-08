@@ -37,10 +37,14 @@ defmodule Pista.HTMLParsers.TournamentsA1CalendarImpl do
         Logger.info("Processing pertinent data")
         event_name = el |> Floki.find(".location") |> Floki.text()
 
-        [country] =
+        country =
           el
           |> Floki.find("img")
           |> Floki.attribute("alt")
+          |> then(fn
+            ["España"] -> "Spain"
+            [country] -> country
+          end)
 
         %{event_name: event_name, country: country}
       end)
