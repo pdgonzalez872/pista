@@ -42,7 +42,7 @@ defmodule Pista.HTMLParsers.TournamentsA1IndividualTournamentImpl do
       |> String.replace("-", " ")
       |> String.split(" ", trim: true)
       |> case do
-        [day_start, day_end, month_text, year_text] ->
+        [day_start, day_end, month_text, year_text] = all ->
           month =
             Map.get(
               %{
@@ -62,13 +62,21 @@ defmodule Pista.HTMLParsers.TournamentsA1IndividualTournamentImpl do
               month_text
             )
 
-          # If the start date is higher than the end date it means that it
-          # starts in the previous month
-          # Could fetch the correct date here, but I think this will be brittle
+          day_start = String.to_integer(day_start)
+          day_end = String.to_integer(day_end)
+
+          month =
+            if day_start > day_end do
+              month - 1
+            else
+              month
+            end
+
           [
-            Date.new!(String.to_integer(year_text), month, String.to_integer(day_start)),
-            Date.new!(String.to_integer(year_text), month, String.to_integer(day_end))
+            Date.new!(String.to_integer(year_text), month, day_start),
+            Date.new!(String.to_integer(year_text), month, day_end)
           ]
+          |> IO.inspect(label: "SHEEP")
       end
       |> case do
         [_start_date, _end_date] = success ->
