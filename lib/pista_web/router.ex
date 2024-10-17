@@ -13,12 +13,22 @@ defmodule PistaWeb.Router do
     plug :fetch_current_user
   end
 
+  pipeline :guest do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_root_layout, html: {PistaWeb.Layouts, :root_guest}
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+    plug :fetch_current_user
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/", PistaWeb do
-    pipe_through :browser
+    pipe_through :guest
 
     get "/", RedirectPlug, to: "/feed"
 

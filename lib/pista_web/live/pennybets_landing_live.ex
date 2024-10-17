@@ -42,7 +42,7 @@ defmodule PistaWeb.PennyBetsLandingLive do
           <ul class="mx-auto mt-2 max-w-xl text-sm leading-8 text-gray-300 list-disc">
             <li>
               <a href="mailto:contact@pista.cloud?subject=Pista%20|%20PennyBets&body=Sign%20Me%20Up%20please!">
-                Get referred or request an account (click here)
+                Get referred or or Click Here to request an account
               </a>
             </li>
             <li>
