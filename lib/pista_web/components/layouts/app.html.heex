@@ -8,81 +8,6 @@
   ```
 -->
 <div>
-  <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
-  <div class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
-    <!--
-      Off-canvas menu backdrop, show/hide based on off-canvas menu state.
-
-      Entering: "transition-opacity ease-linear duration-300"
-        From: "opacity-0"
-        To: "opacity-100"
-      Leaving: "transition-opacity ease-linear duration-300"
-        From: "opacity-100"
-        To: "opacity-0"
-    -->
-    <div class="fixed inset-0 bg-gray-900/80" aria-hidden="true"></div>
-
-    <div class="fixed inset-0 flex">
-      <!--
-        Off-canvas menu, show/hide based on off-canvas menu state.
-
-        Entering: "transition ease-in-out duration-300 transform"
-          From: "-translate-x-full"
-          To: "translate-x-0"
-        Leaving: "transition ease-in-out duration-300 transform"
-          From: "translate-x-0"
-          To: "-translate-x-full"
-      -->
-      <div class="relative mr-16 flex w-full max-w-xs flex-1">
-        <!--
-          Close button, show/hide based on off-canvas menu state.
-
-          Entering: "ease-in-out duration-300"
-            From: "opacity-0"
-            To: "opacity-100"
-          Leaving: "ease-in-out duration-300"
-            From: "opacity-100"
-            To: "opacity-0"
-        -->
-        <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
-          <button type="button" class="-m-2.5 p-2.5">
-            <span class="sr-only">Close sidebar</span>
-            <svg
-              class="h-6 w-6 text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              aria-hidden="true"
-              data-slot="icon"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-        <!-- Sidebar component, swap this element with another sidebar if you like -->
-        <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
-          <.link
-            patch={~p"/home"}
-            class="group flex gap-x-3 rounded-md bg-gray-50 p-2 text-sm font-semibold leading-6 text-indigo-600"
-          >
-            <div class="flex h-16 shrink-0 items-center">
-              <img
-                class="col-span-2 max-h-16 w-full object-contain lg:col-span-1"
-                src="/images/pista_1.jpeg"
-                alt="Pista"
-                width="158"
-                height="48"
-              />
-            </div>
-          </.link>
-          <nav class="flex flex-1 flex-col">
-            <ul role="list" class="flex flex-1 flex-col gap-y-7"></ul>
-          </nav>
-        </div>
-      </div>
-    </div>
-  </div>
   <!-- Static sidebar for desktop -->
   <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
     <!-- Sidebar component, swap this element with another sidebar if you like -->
@@ -107,10 +32,10 @@
                 <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
                 <.link
                   patch={~p"/bets"}
-                  class="group flex gap-x-3 rounded-md bg-gray-50 p-2 text-sm font-semibold leading-6 text-indigo-600"
+                  class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:text-indigo-600 hover:bg-gray-50"
                 >
                   <svg
-                    class="h-6 w-6 shrink-0 text-indigo-600"
+                    class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
@@ -185,28 +110,59 @@
     </div>
   </div>
 
-  <div class="sticky top-0 z-40 flex items-center gap-x-6 bg-white px-4 py-4 shadow-sm sm:px-6 lg:hidden">
-    <button type="button" class="-m-2.5 p-2.5 text-gray-700 lg:hidden">
-      <span class="sr-only">Open sidebar</span>
-      <svg
-        class="h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        aria-hidden="true"
-        data-slot="icon"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-        />
-      </svg>
-    </button>
-  </div>
-
   <main class="py-10 lg:pl-72">
+    <!-- Mobile bottom navigation bar -->
+
+    <div class="flex h-16 shrink-0 items-center lg:hidden">
+      <.link
+        patch={~p"/home"}
+        class="group flex gap-x-3 rounded-md bg-gray-50 p-2 text-sm font-semibold leading-6 text-indigo-600"
+      >
+        <img
+          class="col-span-2 max-h-10 w-full object-contain lg:col-span-1"
+          src="/images/pista_1.jpeg"
+          alt="Pista"
+        />
+      </.link>
+    </div>
+
+    <div class="fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 lg:hidden">
+      <nav class="flex justify-around">
+        <.link
+          patch={~p"/home"}
+          class="flex flex-col items-center py-2 text-sm font-medium text-gray-700 hover:text-indigo-600"
+        >
+          <!-- Optional Icon -->
+      <!-- <svg class="h-6 w-6 mb-1" ...></svg> -->
+      Home
+        </.link>
+        <.link
+          patch={~p"/bets"}
+          class="flex flex-col items-center py-2 text-sm font-medium text-gray-700 hover:text-indigo-600"
+        >
+          Bets
+        </.link>
+        <.link
+          patch={~p"/results"}
+          class="flex flex-col items-center py-2 text-sm font-medium text-gray-700 hover:text-indigo-600"
+        >
+          Results
+        </.link>
+        <.link
+          patch={~p"/feed"}
+          class="flex flex-col items-center py-2 text-sm font-medium text-gray-700 hover:text-indigo-600"
+        >
+          Feed
+        </.link>
+        <.link
+          patch={~p"/draws"}
+          class="flex flex-col items-center py-2 text-sm font-medium text-gray-700 hover:text-indigo-600"
+        >
+          Draws
+        </.link>
+      </nav>
+    </div>
+
     <div class="px-4 sm:px-6 lg:px-8">
       <%= @inner_content %>
     </div>

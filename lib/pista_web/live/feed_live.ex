@@ -4,8 +4,6 @@ defmodule PistaWeb.FeedLive do
   require Logger
 
   def mount(_params, _session, socket) do
-    # Logger.info("Handling first mount, full html page")
-
     if connected?(socket) do
       Logger.info("Handling second mount, connected mount")
       :timer.send_interval(:timer.minutes(1), self(), :tick)
