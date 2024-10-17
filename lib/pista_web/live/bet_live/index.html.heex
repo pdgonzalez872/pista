@@ -1,0 +1,52 @@
+<.header>
+  Listing Bets
+  <:actions>
+    <.link patch={~p"/bets/new"}>
+      <.button>New Bet</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="bets"
+  rows={@streams.bets}
+  row_click={fn {_id, bet} -> JS.navigate(~p"/bets/#{bet}") end}
+>
+  <:col :let={{_id, bet}} label="Private"><%= bet.private %></:col>
+  <:col :let={{_id, bet}} label="Description"><%= bet.description %></:col>
+  <:col :let={{_id, bet}} label="Has both betting sides"><%= bet.has_both_betting_sides %></:col>
+  <:col :let={{_id, bet}} label="Settled"><%= bet.settled %></:col>
+  <:col :let={{_id, bet}} label="Outcome proof"><%= bet.outcome_proof %></:col>
+  <:col :let={{_id, bet}} label="Bettor a pre notes"><%= bet.bettor_a_pre_notes %></:col>
+  <:col :let={{_id, bet}} label="Bettor b pre notes"><%= bet.bettor_b_pre_notes %></:col>
+  <:col :let={{_id, bet}} label="Bettor a post notes"><%= bet.bettor_a_post_notes %></:col>
+  <:col :let={{_id, bet}} label="Bettor b post notes"><%= bet.bettor_b_post_notes %></:col>
+  <:col :let={{_id, bet}} label="Winner"><%= bet.winner_id %></:col>
+  <:col :let={{_id, bet}} label="Bettor a"><%= bet.bettor_a_id %></:col>
+  <:col :let={{_id, bet}} label="Bettor b"><%= bet.bettor_b_id %></:col>
+  <:action :let={{_id, bet}}>
+    <div class="sr-only">
+      <.link navigate={~p"/bets/#{bet}"}>Show</.link>
+    </div>
+    <.link patch={~p"/bets/#{bet}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, bet}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: bet.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="bet-modal" show on_cancel={JS.patch(~p"/bets")}>
+  <.live_component
+    module={PistaWeb.BetLive.FormComponent}
+    id={@bet.id || :new}
+    title={@page_title}
+    action={@live_action}
+    bet={@bet}
+    patch={~p"/bets"}
+  />
+</.modal>

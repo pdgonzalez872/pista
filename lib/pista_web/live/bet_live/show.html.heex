@@ -1,0 +1,37 @@
+<.header>
+  Bet <%= @bet.id %>
+  <:subtitle>This is a bet record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/bets/#{@bet}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit bet</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Private"><%= @bet.private %></:item>
+  <:item title="Description"><%= @bet.description %></:item>
+  <:item title="Has both betting sides"><%= @bet.has_both_betting_sides %></:item>
+  <:item title="Settled"><%= @bet.settled %></:item>
+  <:item title="Outcome proof"><%= @bet.outcome_proof %></:item>
+  <:item title="Bettor a pre notes"><%= @bet.bettor_a_pre_notes %></:item>
+  <:item title="Bettor b pre notes"><%= @bet.bettor_b_pre_notes %></:item>
+  <:item title="Bettor a post notes"><%= @bet.bettor_a_post_notes %></:item>
+  <:item title="Bettor b post notes"><%= @bet.bettor_b_post_notes %></:item>
+  <:item title="Winner"><%= @bet.winner_id %></:item>
+  <:item title="Bettor a"><%= @bet.bettor_a_id %></:item>
+  <:item title="Bettor b"><%= @bet.bettor_b_id %></:item>
+</.list>
+
+<.back navigate={~p"/bets"}>Back to bets</.back>
+
+<.modal :if={@live_action == :edit} id="bet-modal" show on_cancel={JS.patch(~p"/bets/#{@bet}")}>
+  <.live_component
+    module={PistaWeb.BetLive.FormComponent}
+    id={@bet.id}
+    title={@page_title}
+    action={@live_action}
+    bet={@bet}
+    patch={~p"/bets/#{@bet}"}
+  />
+</.modal>

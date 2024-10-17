@@ -54,25 +54,20 @@ defmodule PistaWeb.UserRegistrationLive do
   end
 
   def handle_event("save", %{"user" => user_params}, socket) do
-    case Accounts.register_user(user_params) do
-      {:ok, user} ->
-        {:ok, _} =
-          Accounts.deliver_user_confirmation_instructions(
-            user,
-            &url(~p"/users/confirm/#{&1}")
-          )
-
-        changeset = Accounts.change_user_registration(user)
-        {:noreply, socket |> assign(trigger_submit: true) |> assign_form(changeset)}
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, socket |> assign(check_errors: true) |> assign_form(changeset)}
-    end
+    changeset = Accounts.change_user_registration(%User{}, user_params)
+    {:noreply, socket |> assign(trigger_submit: true) |> assign_form(changeset)}
   end
 
-  def handle_event("validate", %{"user" => user_params}, socket) do
-    changeset = Accounts.change_user_registration(%User{}, user_params)
-    {:noreply, assign_form(socket, Map.put(changeset, :action, :validate))}
+  def handle_event("validate", %{"user" => _user_params}, socket) do
+    changeset =
+      %User{}
+      |> Accounts.change_user_registration(%{})
+      |> Map.put(:errors, [])
+      |> Ecto.Changeset.add_error(:email, "You need to request this by email")
+      |> dbg()
+      |> Map.put(:action, :validate)
+
+    {:noreply, assign_form(socket, changeset)}
   end
 
   defp assign_form(socket, %Ecto.Changeset{} = changeset) do
