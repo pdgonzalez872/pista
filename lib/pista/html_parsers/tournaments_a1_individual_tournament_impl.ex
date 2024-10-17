@@ -42,7 +42,7 @@ defmodule Pista.HTMLParsers.TournamentsA1IndividualTournamentImpl do
       |> String.replace("-", " ")
       |> String.split(" ", trim: true)
       |> case do
-        [day_start, day_end, month_text, year_text] = all ->
+        [day_start, day_end, month_text, year_text] ->
           month =
             Map.get(
               %{
