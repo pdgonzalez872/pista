@@ -20,6 +20,7 @@ defmodule PistaWeb.Router do
     get "/", RedirectPlug, to: "/feed"
 
     live "/feed", HomeLive
+    live "/pennybets", PennyBetsLandingLive
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

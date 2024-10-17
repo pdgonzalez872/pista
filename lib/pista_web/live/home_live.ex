@@ -1,6 +1,5 @@
 defmodule PistaWeb.HomeLive do
-  # In Phoenix v1.6+ apps, the line is typically: use MyAppWeb, :live_view
-  use Phoenix.LiveView
+  use PistaWeb, :live_view
 
   require Logger
 
@@ -105,6 +104,22 @@ defmodule PistaWeb.HomeLive do
                 true
               ) %>
 
+              <.link patch={~p"/pennybets"}>
+                Next
+                <div class="py-6 mx-auto max-w-2xl text-center">
+                  <h1 class="text-2xl font-bold tracking-tight text-gray-900">
+                    <div>
+                      <span>
+                        🧠 Want to predict results?
+                      </span>
+                    </div>
+                  </h1>
+
+                  <p class="mt-6 text-sm leading-8 text-gray-400">
+                    Do so here! (Not worth real money, sorry!)
+                  </p>
+                </div>
+              </.link>
               <div class="py-6 mx-auto max-w-2xl text-center">
                 <h1 class="text-2xl font-bold tracking-tight text-gray-900">
                   <div>
@@ -325,6 +340,36 @@ defmodule PistaWeb.HomeLive do
         </div>
       </div>
     </div>
+
+    <a href="mailto:contact@pista.cloud?subject=Pista%20|%20Contact&body=Hi!">
+      <div class="inset-x-0 bottom-0">
+        <div class="flex items-center gap-x-6 bg-gray-100 py-2.5 px-6 sm:px-3.5 sm:before:flex-1">
+          <p class="justify-center text-sm leading-6 text-black">
+            <strong class="font-semibold">Want to partner with us? </strong><span class="text-indigo-600 font-bold">Drop us a line!</span>
+          </p>
+          <div class="flex flex-1 justify-end">
+            <button type="button" class="-m-3 p-3 focus-visible:outline-offset-[-4px]">
+              <span class="sr-only"></span>
+              <!-- Heroicon name: mini/x-mark -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </a>
     """
   end
 
