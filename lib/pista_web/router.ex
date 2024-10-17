@@ -32,7 +32,7 @@ defmodule PistaWeb.Router do
 
     get "/", RedirectPlug, to: "/feed"
 
-    live "/feed", HomeLive
+    live "/feed", FeedLive
     live "/pennybets", PennyBetsLandingLive
   end
 
@@ -79,6 +79,8 @@ defmodule PistaWeb.Router do
       ] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+
+      live "/home", HomeLive
 
       # Bets
       live "/bets", BetLive.Index, :index
