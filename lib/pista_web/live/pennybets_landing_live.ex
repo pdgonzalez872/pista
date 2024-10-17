@@ -4,7 +4,7 @@ defmodule PistaWeb.PennyBetsLandingLive do
   require Logger
 
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    {:ok, socket, layout: false}
   end
 
   def render(assigns) do
@@ -61,14 +61,14 @@ defmodule PistaWeb.PennyBetsLandingLive do
 
           <div class="mt-10 flex items-center justify-center gap-x-6">
             <.link
-              href={~p"/bets"}
+              patch={~p"/bets"}
               class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               Your PennyBets
             </.link>
 
             <.link
-              href={~p"/bets/new"}
+              patch={~p"/bets/new"}
               class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               Place PennyBets

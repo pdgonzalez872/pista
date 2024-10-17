@@ -21,10 +21,25 @@ defmodule Pista.Bets.Bet do
     timestamps()
   end
 
+  @optional [
+    :has_both_betting_sides,
+    :settled,
+    :outcome_proof,
+    :bettor_a_pre_notes,
+    :bettor_b_pre_notes,
+    :bettor_a_post_notes,
+    :bettor_b_post_notes,
+    :winner_id,
+    :bettor_a_id,
+    :bettor_b_id
+  ]
+  @required [:private, :description]
+  @all @required ++ @optional
+
   @doc false
   def changeset(bet, attrs) do
     bet
-    |> cast(attrs, [:private, :description, :has_both_betting_sides, :settled, :outcome_proof, :bettor_a_pre_notes, :bettor_b_pre_notes, :bettor_a_post_notes, :bettor_b_post_notes, :winner_id, :bettor_a_id, :bettor_b_id])
-    |> validate_required([:private, :description, :has_both_betting_sides, :settled, :outcome_proof, :bettor_a_pre_notes, :bettor_b_pre_notes, :bettor_a_post_notes, :bettor_b_post_notes, :winner_id, :bettor_a_id, :bettor_b_id])
+    |> cast(attrs, @all)
+    |> validate_required(@required)
   end
 end

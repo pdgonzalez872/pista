@@ -4,9 +4,48 @@ defmodule PistaWeb.BetLiveTest do
   import Phoenix.LiveViewTest
   import Pista.BetsFixtures
 
-  @create_attrs %{private: true, description: "some description", has_both_betting_sides: true, settled: true, outcome_proof: "some outcome_proof", bettor_a_pre_notes: "some bettor_a_pre_notes", bettor_b_pre_notes: "some bettor_b_pre_notes", bettor_a_post_notes: "some bettor_a_post_notes", bettor_b_post_notes: "some bettor_b_post_notes", winner_id: "7488a646-e31f-11e4-aace-600308960662", bettor_a_id: "7488a646-e31f-11e4-aace-600308960662", bettor_b_id: "7488a646-e31f-11e4-aace-600308960662"}
-  @update_attrs %{private: false, description: "some updated description", has_both_betting_sides: false, settled: false, outcome_proof: "some updated outcome_proof", bettor_a_pre_notes: "some updated bettor_a_pre_notes", bettor_b_pre_notes: "some updated bettor_b_pre_notes", bettor_a_post_notes: "some updated bettor_a_post_notes", bettor_b_post_notes: "some updated bettor_b_post_notes", winner_id: "7488a646-e31f-11e4-aace-600308960668", bettor_a_id: "7488a646-e31f-11e4-aace-600308960668", bettor_b_id: "7488a646-e31f-11e4-aace-600308960668"}
-  @invalid_attrs %{private: false, description: nil, has_both_betting_sides: false, settled: false, outcome_proof: nil, bettor_a_pre_notes: nil, bettor_b_pre_notes: nil, bettor_a_post_notes: nil, bettor_b_post_notes: nil, winner_id: nil, bettor_a_id: nil, bettor_b_id: nil}
+  @create_attrs %{
+    private: true,
+    description: "some description",
+    has_both_betting_sides: true,
+    settled: true,
+    outcome_proof: "some outcome_proof",
+    bettor_a_pre_notes: "some bettor_a_pre_notes",
+    bettor_b_pre_notes: "some bettor_b_pre_notes",
+    bettor_a_post_notes: "some bettor_a_post_notes",
+    bettor_b_post_notes: "some bettor_b_post_notes",
+    winner_id: "7488a646-e31f-11e4-aace-600308960662",
+    bettor_a_id: "7488a646-e31f-11e4-aace-600308960662",
+    bettor_b_id: "7488a646-e31f-11e4-aace-600308960662"
+  }
+  @update_attrs %{
+    private: false,
+    description: "some updated description",
+    has_both_betting_sides: false,
+    settled: false,
+    outcome_proof: "some updated outcome_proof",
+    bettor_a_pre_notes: "some updated bettor_a_pre_notes",
+    bettor_b_pre_notes: "some updated bettor_b_pre_notes",
+    bettor_a_post_notes: "some updated bettor_a_post_notes",
+    bettor_b_post_notes: "some updated bettor_b_post_notes",
+    winner_id: "7488a646-e31f-11e4-aace-600308960668",
+    bettor_a_id: "7488a646-e31f-11e4-aace-600308960668",
+    bettor_b_id: "7488a646-e31f-11e4-aace-600308960668"
+  }
+  @invalid_attrs %{
+    private: false,
+    description: nil,
+    has_both_betting_sides: false,
+    settled: false,
+    outcome_proof: nil,
+    bettor_a_pre_notes: nil,
+    bettor_b_pre_notes: nil,
+    bettor_a_post_notes: nil,
+    bettor_b_post_notes: nil,
+    winner_id: nil,
+    bettor_a_id: nil,
+    bettor_b_id: nil
+  }
 
   defp create_bet(_) do
     bet = bet_fixture()

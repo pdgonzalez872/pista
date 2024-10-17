@@ -75,6 +75,7 @@ defmodule PistaWeb.BetLive.FormComponent do
   end
 
   defp save_bet(socket, :new, bet_params) do
+    dbg()
     case Bets.create_bet(bet_params) do
       {:ok, bet} ->
         notify_parent({:saved, bet})

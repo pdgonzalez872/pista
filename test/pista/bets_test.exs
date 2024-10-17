@@ -8,7 +8,20 @@ defmodule Pista.BetsTest do
 
     import Pista.BetsFixtures
 
-    @invalid_attrs %{private: nil, description: nil, has_both_betting_sides: nil, settled: nil, outcome_proof: nil, bettor_a_pre_notes: nil, bettor_b_pre_notes: nil, bettor_a_post_notes: nil, bettor_b_post_notes: nil, winner_id: nil, bettor_a_id: nil, bettor_b_id: nil}
+    @invalid_attrs %{
+      private: nil,
+      description: nil,
+      has_both_betting_sides: nil,
+      settled: nil,
+      outcome_proof: nil,
+      bettor_a_pre_notes: nil,
+      bettor_b_pre_notes: nil,
+      bettor_a_post_notes: nil,
+      bettor_b_post_notes: nil,
+      winner_id: nil,
+      bettor_a_id: nil,
+      bettor_b_id: nil
+    }
 
     test "list_bets/0 returns all bets" do
       bet = bet_fixture()
@@ -21,7 +34,20 @@ defmodule Pista.BetsTest do
     end
 
     test "create_bet/1 with valid data creates a bet" do
-      valid_attrs = %{private: true, description: "some description", has_both_betting_sides: true, settled: true, outcome_proof: "some outcome_proof", bettor_a_pre_notes: "some bettor_a_pre_notes", bettor_b_pre_notes: "some bettor_b_pre_notes", bettor_a_post_notes: "some bettor_a_post_notes", bettor_b_post_notes: "some bettor_b_post_notes", winner_id: "7488a646-e31f-11e4-aace-600308960662", bettor_a_id: "7488a646-e31f-11e4-aace-600308960662", bettor_b_id: "7488a646-e31f-11e4-aace-600308960662"}
+      valid_attrs = %{
+        private: true,
+        description: "some description",
+        has_both_betting_sides: true,
+        settled: true,
+        outcome_proof: "some outcome_proof",
+        bettor_a_pre_notes: "some bettor_a_pre_notes",
+        bettor_b_pre_notes: "some bettor_b_pre_notes",
+        bettor_a_post_notes: "some bettor_a_post_notes",
+        bettor_b_post_notes: "some bettor_b_post_notes",
+        winner_id: "7488a646-e31f-11e4-aace-600308960662",
+        bettor_a_id: "7488a646-e31f-11e4-aace-600308960662",
+        bettor_b_id: "7488a646-e31f-11e4-aace-600308960662"
+      }
 
       assert {:ok, %Bet{} = bet} = Bets.create_bet(valid_attrs)
       assert bet.private == true
@@ -44,7 +70,21 @@ defmodule Pista.BetsTest do
 
     test "update_bet/2 with valid data updates the bet" do
       bet = bet_fixture()
-      update_attrs = %{private: false, description: "some updated description", has_both_betting_sides: false, settled: false, outcome_proof: "some updated outcome_proof", bettor_a_pre_notes: "some updated bettor_a_pre_notes", bettor_b_pre_notes: "some updated bettor_b_pre_notes", bettor_a_post_notes: "some updated bettor_a_post_notes", bettor_b_post_notes: "some updated bettor_b_post_notes", winner_id: "7488a646-e31f-11e4-aace-600308960668", bettor_a_id: "7488a646-e31f-11e4-aace-600308960668", bettor_b_id: "7488a646-e31f-11e4-aace-600308960668"}
+
+      update_attrs = %{
+        private: false,
+        description: "some updated description",
+        has_both_betting_sides: false,
+        settled: false,
+        outcome_proof: "some updated outcome_proof",
+        bettor_a_pre_notes: "some updated bettor_a_pre_notes",
+        bettor_b_pre_notes: "some updated bettor_b_pre_notes",
+        bettor_a_post_notes: "some updated bettor_a_post_notes",
+        bettor_b_post_notes: "some updated bettor_b_post_notes",
+        winner_id: "7488a646-e31f-11e4-aace-600308960668",
+        bettor_a_id: "7488a646-e31f-11e4-aace-600308960668",
+        bettor_b_id: "7488a646-e31f-11e4-aace-600308960668"
+      }
 
       assert {:ok, %Bet{} = bet} = Bets.update_bet(bet, update_attrs)
       assert bet.private == false

@@ -12,7 +12,7 @@ defmodule PistaWeb.HomeLive do
     end
 
     socket = assign_state(socket)
-    {:ok, socket}
+    {:ok, socket, layout: false}
   end
 
   def render(assigns) do
@@ -110,7 +110,7 @@ defmodule PistaWeb.HomeLive do
                   <h1 class="text-2xl font-bold tracking-tight text-gray-900">
                     <div>
                       <span>
-                        🧠 Want to predict results?
+                        🧠 Can you predict the results?
                       </span>
                     </div>
                   </h1>

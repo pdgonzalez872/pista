@@ -8,9 +8,9 @@ defmodule PistaWeb.UserLoginLive do
         Log in to account
         <:subtitle>
           Don't have an account?
-            <a href="mailto:contact@pista.cloud?subject=Pista%20|%20PennyBets&body=Sign%20Me%20Up%20please!">
-              Sign Up
-            </a>
+          <a href="mailto:contact@pista.cloud?subject=Pista%20|%20PennyBets&body=Sign%20Me%20Up%20please!">
+            Sign Up
+          </a>
           for an account now.
         </:subtitle>
       </.header>
