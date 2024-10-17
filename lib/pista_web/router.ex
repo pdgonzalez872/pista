@@ -50,7 +50,8 @@ defmodule PistaWeb.Router do
 
     live_session :redirect_if_user_is_authenticated,
       on_mount: [{PistaWeb.UserAuth, :redirect_if_user_is_authenticated}] do
-      live "/users/register", UserRegistrationLive, :new
+      # No registering for now, invite only
+      # live "/users/register", UserRegistrationLive, :new
       live "/users/log_in", UserLoginLive, :new
       live "/users/reset_password", UserForgotPasswordLive, :new
       live "/users/reset_password/:token", UserResetPasswordLive, :edit
