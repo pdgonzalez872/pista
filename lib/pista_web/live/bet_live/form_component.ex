@@ -75,8 +75,10 @@ defmodule PistaWeb.BetLive.FormComponent do
   end
 
   defp save_bet(socket, :new, bet_params) do
-    dbg()
-    case Bets.create_bet(bet_params) do
+    bet_params
+    |> Map.put("bettor_a_id", socket.assigns.current_user.id)
+    |> Bets.create_bet()
+    |> case do
       {:ok, bet} ->
         notify_parent({:saved, bet})
 
