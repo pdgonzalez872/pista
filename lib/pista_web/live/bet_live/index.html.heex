@@ -7,17 +7,14 @@
   </:actions>
 </.header>
 
-ADD Card here
-
 <.table
   id="bets"
   rows={@streams.bets}
   row_click={fn {_id, bet} -> JS.navigate(~p"/bets/#{bet}") end}
 >
-  <:col :let={{_id, bet}} label="Private"><%= bet.private %></:col>
-  <:col :let={{_id, bet}} label="Description"><%= bet.description %></:col>
-  <:col :let={{_id, bet}} label="Has both betting sides"><%= bet.has_both_betting_sides %></:col>
-  <:col :let={{_id, bet}} label="Settled"><%= bet.settled %></:col>
+  <:col :let={{_id, bet}} label="Description"><%= Pista.Bets.pretty_bet_description(bet) %></:col>
+  <:col :let={{_id, bet}} label="Has both betting sides"><%= Pista.Bets.pretty_bet_has_both_betting_sides(bet) %></:col>
+  <:col :let={{_id, bet}} label="Settled"><%= Pista.Bets.pretty_bet_settled(bet) %></:col>
   <:action :let={{_id, bet}}>
     <div class="sr-only">
       <.link navigate={~p"/bets/#{bet}"}>Show</.link>
@@ -33,6 +30,7 @@ ADD Card here
     </.link>
   </:action>
 </.table>
+
 
 <.modal :if={@live_action in [:new, :edit]} id="bet-modal" show on_cancel={JS.patch(~p"/bets")}>
   <.live_component

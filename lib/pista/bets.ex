@@ -37,6 +37,30 @@ defmodule Pista.Bets do
   """
   def get_bet!(id), do: Repo.get!(Bet, id)
 
+  def pretty_bet_description(%Bet{description: d, private: true}) do
+    "🕵️ | #{d}"
+  end
+
+  def pretty_bet_description(%Bet{description: d, private: false}) do
+    "📢 | #{d} "
+  end
+
+  def pretty_bet_settled(%Bet{settled: true}) do
+    "🤝"
+  end
+
+  def pretty_bet_settled(%Bet{settled: false}) do
+    "⏳"
+  end
+
+  def pretty_bet_has_both_betting_sides(%Bet{has_both_betting_sides: true}) do
+    "🔓"
+  end
+
+  def pretty_bet_has_both_betting_sides(%Bet{has_both_betting_sides: false}) do
+    "⏳"
+  end
+
   @doc """
   Creates a bet.
 
