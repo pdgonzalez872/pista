@@ -222,7 +222,7 @@ defmodule PistaWeb.HomeLive do
                     <div class="my-5 text-base text-black-400 max-w-prose mx-auto lg:max-w-none">
                       <ul>
                         <%= for embed <- @padel_embeds do %>
-                          <%= if embed.channel_name == "@PremierPadelTV" do %>
+                          <%= if embed.channel_name in @need_to_visit_youtube do %>
                             <p class="py-3 mt-6 text-center text-base leading-8 text-gray-600">
                               <span>
                                 This is live, but you have to watch this on
@@ -659,9 +659,11 @@ defmodule PistaWeb.HomeLive do
       }
     ]
 
+    need_to_visit_youtube = ["@PremierPadelTV", "@PremierPadelOfficial"]
+
     all_premier =
       Enum.all?(padel_embeds, fn embed ->
-        embed.channel_name == "@PremierPadelTV"
+        embed.channel_name in need_to_visit_youtube
       end)
 
     click_full_screen_notice =
@@ -693,6 +695,7 @@ defmodule PistaWeb.HomeLive do
     |> assign(:click_full_screen_notice, click_full_screen_notice)
     |> assign(:diplay_click_full_screen_notice, !all_premier)
     |> assign(:redbulltv_is_live, Pista.Livestreams.redbulltv_is_live?())
+    |> assign(:need_to_visit_youtube, need_to_visit_youtube)
   end
 
   defp get_toggle_sign(should) do
